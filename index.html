@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>circl. — welcome, great things are in progress</title>
+  <meta name="description" content="A premium math and design-inspired brand landing page for circl. Fusing the geometry of Pi and the Golden Ratio into a responsive, interactive blueprint.">
+  
+  <!-- Google Fonts: Outfit for display, Inter for UI, Fira Code for math variables -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;600;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* -------------------------------------------------------------
+       Design System & Core Variables
+    ------------------------------------------------------------- */
+    :root {
+      /* Palette: Figma Dark-Inspired + Vibrant Accents */
+      --bg-darkest: #070709;
+      --bg-card: #0d0d11;
+      --bg-panel: #141419;
+      --bg-hover: #1f1f26;
+      
+      --border-color: #1f1f26;
+      --border-glow: #2c2c35;
+      
+      --text-primary: #ffffff;
+      --text-secondary: #a1a1aa;
+      --text-muted: #52525b;
+      
+      /* Vibrant Accents representing creativity, math, and process */
+      --color-purple: #a259ff;
+      --color-teal: #0acf83;
+      --color-orange: #f24e1e;
+      --color-blue: #0c8ce9;
+      
+      --brand-gradient: linear-gradient(135deg, var(--color-teal) 0%, var(--color-purple) 50%, var(--color-orange) 100%);
+      --glow-shadow: 0 0 50px rgba(162, 89, 255, 0.15);
+      --glow-teal: 0 0 50px rgba(10, 207, 131, 0.15);
+    }
+
+    /* Base Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-darkest);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Ambient Glowing Orbs in the background */
+    .glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(140px);
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.4;
+      transition: all 1s ease;
+    }
+
+    .glow-orb-1 {
+      width: 45vw;
+      height: 45vw;
+      top: -10vw;
+      right: -10vw;
+      background: radial-gradient(circle, rgba(162, 89, 255, 0.3) 0%, transparent 70%);
+    }
+
+    .glow-orb-2 {
+      width: 50vw;
+      height: 50vw;
+      bottom: -15vw;
+      left: -15vw;
+      background: radial-gradient(circle, rgba(10, 207, 131, 0.15) 0%, transparent 70%);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-darkest);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--text-muted);
+    }
+
+    /* -------------------------------------------------------------
+       Header & Navigation
+    ------------------------------------------------------------- */
+    header {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 24px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+      position: relative;
+    }
+
+    .brand-logo-text {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 24px;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-primary);
+    }
+
+    .brand-logo-text span {
+      background: var(--brand-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-logo-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--color-teal);
+      box-shadow: 0 0 10px var(--color-teal);
+    }
+
+    .sys-status-pill {
+      font-family: 'Fira Code', monospace;
+      font-size: 11px;
+      color: var(--color-teal);
+      background-color: rgba(10, 207, 131, 0.08);
+      border: 1px solid rgba(10, 207, 131, 0.2);
+      padding: 6px 14px;
+      border-radius: 30px;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .status-pulse-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--color-teal);
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(0.9);
+        opacity: 0.5;
+        box-shadow: 0 0 0 0 rgba(10, 207, 131, 0.7);
+      }
+      70% {
+        transform: scale(1);
+        opacity: 1;
+        box-shadow: 0 0 0 6px rgba(10, 207, 131, 0);
+      }
+      100% {
+        transform: scale(0.9);
+        opacity: 0.5;
+        box-shadow: 0 0 0 0 rgba(10, 207, 131, 0);
+      }
+    }
+
+    /* -------------------------------------------------------------
+       Layout Structure (Hero Grid)
+    ------------------------------------------------------------- */
+    main {
+      flex: 1;
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px 60px 40px;
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      z-index: 10;
+      position: relative;
+    }
+
+    /* Left Column: Hero Text Content */
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .hero-headline {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: clamp(40px, 5vw, 68px);
+      line-height: 1.05;
+      letter-spacing: -2px;
+      color: var(--text-primary);
+    }
+
+    .hero-headline span.gradient-text {
+      background: linear-gradient(135deg, #ffffff 40%, var(--color-purple) 80%, var(--color-teal) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-headline span.accent-text {
+      background: var(--brand-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: block;
+      margin-top: 4px;
+    }
+
+    .hero-description {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      max-width: 520px;
+    }
+
+    /* Scientific / Math Specs Grid */
+    .math-specs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+      padding: 24px 0;
+    }
+
+    .spec-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .spec-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+    }
+
+    .spec-value {
+      font-family: 'Fira Code', monospace;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .spec-value.value-pi {
+      color: var(--color-purple);
+    }
+
+    .spec-value.value-phi {
+      color: var(--color-teal);
+    }
+
+    /* Actions Deck */
+    .actions-deck {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .btn {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 14px 28px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      text-decoration: none;
+      outline: none;
+      user-select: none;
+    }
+
+    .btn-primary {
+      background: var(--brand-gradient);
+      color: var(--text-primary);
+      border: none;
+      box-shadow: 0 4px 20px rgba(162, 89, 255, 0.25);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(162, 89, 255, 0.4), 0 0 15px rgba(10, 207, 131, 0.3);
+    }
+
+    .btn-secondary {
+      background-color: var(--bg-card);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--bg-panel);
+      color: var(--text-primary);
+      border-color: var(--text-muted);
+    }
+
+    .btn-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* -------------------------------------------------------------
+       Right Column: Interactive Blueprint Canvas
+    ------------------------------------------------------------- */
+    .canvas-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .brand-canvas {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      max-width: 600px;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      box-shadow: var(--glow-shadow);
+      overflow: hidden;
+      cursor: crosshair;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .brand-canvas:hover {
+      border-color: var(--border-glow);
+    }
+
+    /* Figma-style layout lines for outer bounding frame */
+    .brand-canvas::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      border: 1px dashed rgba(255, 255, 255, 0.03);
+      border-radius: 10px;
+      pointer-events: none;
+    }
+
+    /* Blueprint Dotted Grid Background */
+    .canvas-grid {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1.2px, transparent 1.2px);
+      background-size: 24px 24px;
+      background-position: center;
+      z-index: 1;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    /* Dynamic Crosshair Lines */
+    .canvas-crosshair-x,
+    .canvas-crosshair-y {
+      position: absolute;
+      background-color: rgba(10, 207, 131, 0.15);
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .canvas-crosshair-x {
+      height: 1px;
+      left: 0;
+      right: 0;
+    }
+
+    .canvas-crosshair-y {
+      width: 1px;
+      top: 0;
+      bottom: 0;
+    }
+
+    /* Central Axis Coordinates (thin solid lines) */
+    .axis-line {
+      position: absolute;
+      background-color: rgba(255, 255, 255, 0.05);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .axis-x {
+      height: 1px;
+      left: 0;
+      right: 0;
+      top: 50%;
+    }
+
+    .axis-y {
+      width: 1px;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+    }
+
+    /* Central Coordinates Label at origin (0,0) */
+    .origin-label {
+      position: absolute;
+      top: calc(50% + 4px);
+      left: calc(50% + 6px);
+      font-family: 'Fira Code', monospace;
+      font-size: 9px;
+      color: rgba(255, 255, 255, 0.2);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Interactive SVG Logo Graphic */
+    .blueprint-svg {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    /* SVG Elements Styling */
+    .math-circle {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.035);
+      stroke-width: 1px;
+      transition: stroke 0.3s ease;
+    }
+
+    .math-circle.active-circle {
+      stroke: rgba(162, 89, 255, 0.12);
+      stroke-width: 1.5px;
+    }
+
+    .math-circle.phi-circle {
+      stroke: rgba(10, 207, 131, 0.08);
+      stroke-dasharray: 4 4;
+    }
+
+    .radial-ray {
+      stroke: rgba(255, 255, 255, 0.02);
+      stroke-width: 1px;
+      stroke-dasharray: 3 6;
+    }
+
+    .radian-label-svg {
+      font-family: 'Fira Code', monospace;
+      font-size: 8px;
+      fill: rgba(255, 255, 255, 0.2);
+      text-anchor: middle;
+      dominant-baseline: middle;
+    }
+
+    /* Golden Spiral Path */
+    #golden-spiral-path {
+      fill: none;
+      stroke: url(#brandGrad);
+      stroke-width: 2.2px;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: opacity 0.5s ease;
+    }
+
+    /* Sweeping outer arc track */
+    #sweep-arc-path {
+      fill: none;
+      stroke: var(--color-purple);
+      stroke-width: 1.5px;
+      stroke-linecap: round;
+      opacity: 0.4;
+    }
+
+    /* Pi Glyphs in Center */
+    .pi-path-glow {
+      fill: none;
+      stroke: var(--color-teal);
+      stroke-width: 8px;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity: 0;
+      filter: blur(10px);
+      transition: opacity 0.5s ease;
+    }
+
+    .pi-path-solid {
+      fill: var(--text-primary);
+      transition: fill 0.5s ease, transform 0.5s ease;
+    }
+
+    /* Floating Canvas Badges (Figma Inspired) */
+    .canvas-badge {
+      position: absolute;
+      background-color: rgba(13, 13, 17, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-family: 'Fira Code', monospace;
+      font-size: 10px;
+      color: var(--text-secondary);
+      z-index: 4;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .badge-tag {
+      font-size: 8px;
+      font-weight: 600;
+      color: var(--text-muted);
+      border-right: 1px solid var(--border-color);
+      padding-right: 6px;
+      text-transform: uppercase;
+    }
+
+    .badge-top-left { top: 16px; left: 16px; }
+    .badge-top-right { top: 16px; right: 16px; }
+    .badge-bottom-left { bottom: 16px; left: 16px; }
+    .badge-bottom-right { bottom: 16px; right: 16px; }
+
+    .badge-tag.tag-orange { color: var(--color-orange); }
+    .badge-tag.tag-purple { color: var(--color-purple); }
+    .badge-tag.tag-teal { color: var(--color-teal); }
+    .badge-tag.tag-blue { color: var(--color-blue); }
+
+    /* Cursor Follower tooltip inside canvas */
+    .cursor-tooltip {
+      position: absolute;
+      background-color: var(--color-teal);
+      color: var(--bg-darkest);
+      font-family: 'Fira Code', monospace;
+      font-size: 9px;
+      font-weight: 500;
+      padding: 3px 6px;
+      border-radius: 4px;
+      pointer-events: none;
+      z-index: 5;
+      opacity: 0;
+      white-space: nowrap;
+      transform: translate(12px, 12px);
+      box-shadow: 0 4px 8px rgba(10, 207, 131, 0.2);
+    }
+
+    /* Live Sweep angle indicator line & arc */
+    #angle-line {
+      stroke: rgba(10, 207, 131, 0.35);
+      stroke-width: 1px;
+      stroke-dasharray: 2 4;
+      opacity: 0;
+    }
+
+    #angle-sweep-arc {
+      fill: rgba(10, 207, 131, 0.05);
+      stroke: var(--color-teal);
+      stroke-width: 1px;
+      opacity: 0;
+    }
+
+    /* Golden ratio tracking circle inside SVG */
+    #golden-track-circle {
+      fill: none;
+      stroke: rgba(162, 89, 255, 0.3);
+      stroke-width: 1px;
+      stroke-dasharray: 3 3;
+      opacity: 0;
+    }
+
+    /* Floating Math Formulas overlaying the Canvas */
+    .formula-overlay {
+      position: absolute;
+      font-family: 'Outfit', sans-serif;
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.12);
+      pointer-events: none;
+      z-index: 2;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .formula-overlay:hover {
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    .formula-1 { top: 22%; left: 15%; }
+    .formula-2 { bottom: 22%; right: 15%; }
+    .formula-3 { bottom: 15%; left: 22%; }
+    .formula-4 { top: 15%; right: 22%; }
+
+    /* -------------------------------------------------------------
+       Interactive Dashboard Controls (Control Deck)
+    ------------------------------------------------------------- */
+    .control-deck {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 600px;
+      background-color: var(--bg-panel);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 10px 16px;
+      gap: 16px;
+      z-index: 4;
+    }
+
+    .toggle-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .toggle-button {
+      background-color: transparent;
+      border: 1px solid transparent;
+      color: var(--text-secondary);
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .toggle-button:hover {
+      background-color: var(--bg-hover);
+      color: var(--text-primary);
+    }
+
+    .toggle-button.active-toggle {
+      background-color: var(--bg-darkest);
+      border-color: var(--border-color);
+      color: var(--color-teal);
+    }
+
+    .toggle-indicator-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background-color: var(--text-muted);
+    }
+
+    .active-toggle .toggle-indicator-dot {
+      background-color: var(--color-teal);
+      box-shadow: 0 0 6px var(--color-teal);
+    }
+
+    .simulation-speed {
+      font-family: 'Fira Code', monospace;
+      font-size: 10px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .simulation-speed span {
+      color: var(--color-orange);
+    }
+
+    /* -------------------------------------------------------------
+       Responsive Adjustments & Layout Adjustments
+    ------------------------------------------------------------- */
+    @media (max-width: 1024px) {
+      main {
+        grid-template-columns: 1fr;
+        gap: 48px;
+        padding: 0 24px 40px 24px;
+        text-align: center;
+      }
+
+      .hero-content {
+        align-items: center;
+      }
+
+      .hero-description {
+        margin: 0 auto;
+      }
+
+      .math-specs-grid {
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      .actions-deck {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 640px) {
+      header {
+        padding: 20px 20px;
+      }
+      
+      main {
+        padding: 0 16px 30px 16px;
+        gap: 32px;
+      }
+
+      .math-specs-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .control-deck {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 12px;
+      }
+
+      .toggle-group {
+        justify-content: space-around;
+      }
+
+      .simulation-speed {
+        justify-content: center;
+      }
+    }
+
+    /* -------------------------------------------------------------
+       Animation Engine Classes
+    ------------------------------------------------------------- */
+    .animating-active #golden-spiral-path {
+      animation: drawSpiral 2.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    @keyframes drawSpiral {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    .animating-active #sweep-arc-path {
+      animation: drawCircle 1.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    @keyframes drawCircle {
+      from {
+        stroke-dashoffset: 1500;
+      }
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    .animating-active .pi-path-glow {
+      animation: glowPulse 2.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes glowPulse {
+      0% {
+        opacity: 0.1;
+        filter: blur(8px);
+      }
+      100% {
+        opacity: 0.6;
+        filter: blur(14px);
+        stroke: var(--color-purple);
+      }
+    }
+
+    .animating-active .pi-path-solid {
+      animation: fillGrad 2.5s forwards;
+    }
+
+    @keyframes fillGrad {
+      to {
+        fill: url(#brandGrad);
+        filter: drop-shadow(0 0 12px rgba(162, 89, 255, 0.4));
+      }
+    }
+
+    /* Flash sweep overlay */
+    .flash-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--color-teal);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .flash-trigger {
+      animation: flashEffect 0.8s ease-out;
+    }
+
+    @keyframes flashEffect {
+      0% {
+        opacity: 0.35;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+
+    .site-footer {
+      position: absolute;
+      bottom: 24px;
+      left: 40px;
+      font-family: 'Fira Code', monospace;
+      font-size: 9px;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    @media (max-width: 640px) {
+      .site-footer {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        padding: 0 16px 24px 16px;
+        text-align: center;
+        width: 100%;
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Orbs -->
+  <div class="glow-orb glow-orb-1"></div>
+  <div class="glow-orb glow-orb-2"></div>
+
+  <!-- Header Navigation -->
+  <header>
+    <div class="brand-logo-text">
+      <span>circl</span>
+      <div class="brand-logo-dot"></div>
+    </div>
+    <div class="sys-status-pill">
+      <div class="status-pulse-dot"></div>
+      SYS.STATUS // ACTIVE_DEVELOPMENT
+    </div>
+  </header>
+
+  <!-- Hero Content Section -->
+  <main>
+    <div class="hero-content">
+      <h1 class="hero-headline">
+        <span class="gradient-text">welcome.</span>
+        <span class="accent-text">great things are in progress.</span>
+      </h1>
+      
+      <p class="hero-description">
+        A geometry-focused brand system designed at the intersection of mathematical precision and aesthetic purity. By fusing the infinite circular symmetry of <strong>&pi;</strong> with the structural proportion of the Golden Ratio <strong>&phi;</strong>, we bring digital experiences full circle.
+      </p>
+
+      <!-- Math Specs Dashboard -->
+      <div class="math-specs-grid">
+        <div class="spec-item">
+          <span class="spec-label">PI CONSTANT (&pi;)</span>
+          <span class="spec-value value-pi" id="spec-pi">0.0000000000</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">GOLDEN RATIO (&phi;)</span>
+          <span class="spec-value value-phi" id="spec-phi">0.0000000000</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">GRID CALIBRATION</span>
+          <span class="spec-value" id="spec-coords">[-2&pi;, +2&pi;]</span>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="actions-deck">
+        <button class="btn btn-primary" id="btn-execute">
+          <span class="btn-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 3 19 12 15 13 9 19 5 3"/>
+            </svg>
+          </span>
+          Execute Full Circle
+        </button>
+        <button class="btn btn-secondary" id="btn-blueprint">
+          Blueprint Mode
+        </button>
+      </div>
+    </div>
+
+    <!-- Right Column: Interactive Blueprint Canvas -->
+    <div class="canvas-container">
+      <div class="brand-canvas" id="interactive-canvas">
+        <div class="flash-overlay" id="flash-effect"></div>
+        <div class="canvas-grid" id="bg-grid"></div>
+
+        <!-- Central Axes -->
+        <div class="axis-line axis-x"></div>
+        <div class="axis-line axis-y"></div>
+        <div class="origin-label">(&theta;=0, r=0)</div>
+
+        <!-- Math Formulas Floating Blueprint Style -->
+        <div class="formula-overlay formula-1" id="f-pi">e<sup>i&pi;</sup> + 1 = 0</div>
+        <div class="formula-overlay formula-2" id="f-phi">&phi; = (1+&radic;5)/2</div>
+        <div class="formula-overlay formula-3" id="f-circ">C = 2&pi;r</div>
+        <div class="formula-overlay formula-4" id="f-limit">lim F<sub>n</sub>/F<sub>n-1</sub> = &phi;</div>
+
+        <!-- Floating Badges (Figma UI style) -->
+        <div class="canvas-badge badge-top-left">
+          <span class="badge-tag tag-purple">System</span>
+          <span id="badge-system">SYS.COORD_SPACE</span>
+        </div>
+        <div class="canvas-badge badge-top-right">
+          <span class="badge-tag tag-teal">Radian Sweep</span>
+          <span id="badge-radians">0.00&pi; rad</span>
+        </div>
+        <div class="canvas-badge badge-bottom-left">
+          <span class="badge-tag tag-orange">Spiral Ratio</span>
+          <span id="badge-phi-val">&phi; = 1.618</span>
+        </div>
+        <div class="canvas-badge badge-bottom-right">
+          <span class="badge-tag tag-blue">Cursor Matrix</span>
+          <span id="badge-matrix">X: 0.00 | Y: 0.00</span>
+        </div>
+
+        <!-- Dynamic Tracking Crosshairs -->
+        <div class="canvas-crosshair-x" id="crosshair-x"></div>
+        <div class="canvas-crosshair-y" id="crosshair-y"></div>
+
+        <!-- Floating Tooltip -->
+        <div class="cursor-tooltip" id="c-tooltip">x: 0, y: 0</div>
+
+        <!-- SVG Visuals -->
+        <svg class="blueprint-svg" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <!-- Sleek Linear Gradient for Logo & Spiral -->
+            <linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#0acf83" />
+              <stop offset="50%" stop-color="#a259ff" />
+              <stop offset="100%" stop-color="#f24e1e" />
+            </linearGradient>
+          </defs>
+
+          <!-- Radian Angle Ray Tracks (low opacity guideline) -->
+          <g id="radian-rays-group">
+            <!-- Drawn dynamically in JS -->
+          </g>
+
+          <!-- Concentric Fibonacci Proportional Circles -->
+          <!-- Radii: 34, 55, 89, 144, 233 -->
+          <circle cx="300" cy="300" r="34" class="math-circle" />
+          <circle cx="300" cy="300" r="55" class="math-circle" />
+          <circle cx="300" cy="300" r="89" class="math-circle" />
+          <circle cx="300" cy="300" r="144" class="math-circle" />
+          <circle cx="300" cy="300" r="233" class="math-circle" />
+
+          <!-- Dynamic Sweeping Circle Outline (R=233) -->
+          <path id="sweep-arc-path" d="" />
+
+          <!-- The Golden Ratio Spiral Path -->
+          <path id="golden-spiral-path" d="" />
+
+          <!-- Live angle indicator elements -->
+          <line id="angle-line" x1="300" y1="300" x2="300" y2="300" />
+          <path id="angle-sweep-arc" d="" />
+
+          <!-- Golden Ratio Hover tracker circle -->
+          <circle id="golden-track-circle" cx="300" cy="300" r="0" />
+
+          <!-- Brand Logo: The Pi Symbol (Geometric construction) -->
+          <g id="pi-logo" transform="translate(300, 300) scale(1.6) translate(-50, -53)">
+            <!-- Glow background path -->
+            <path class="pi-path-glow" d="M 25 35 Q 25 30 30 30 L 70 30 Q 75 30 75 35 Q 75 40 70 40 L 63 40 L 63 60 Q 63 68 71 68 Q 74 68 74 72 Q 74 76 68 76 Q 57 76 57 60 L 57 40 L 43 40 L 43 60 Q 43 76 28 76 Q 26 76 26 72 Q 26 68 28 68 Q 37 68 37 60 L 37 40 L 30 40 Q 25 40 25 35 Z" />
+            <!-- Main visible path -->
+            <path class="pi-path-solid" d="M 25 35 Q 25 30 30 30 L 70 30 Q 75 30 75 35 Q 75 40 70 40 L 63 40 L 63 60 Q 63 68 71 68 Q 74 68 74 72 Q 74 76 68 76 Q 57 76 57 60 L 57 40 L 43 40 L 43 60 Q 43 76 28 76 Q 26 76 26 72 Q 26 68 28 68 Q 37 68 37 60 L 37 40 L 30 40 Q 25 40 25 35 Z" fill="rgba(255, 255, 255, 0.9)" />
+          </g>
+        </svg>
+      </div>
+
+      <!-- Control Deck -->
+      <div class="control-deck">
+        <div class="toggle-group">
+          <button class="toggle-button active-toggle" id="toggle-grid">
+            <div class="toggle-indicator-dot"></div>
+            Grid Overlay
+          </button>
+          <button class="toggle-button active-toggle" id="toggle-spiral">
+            <div class="toggle-indicator-dot"></div>
+            Golden Spiral
+          </button>
+          <button class="toggle-button active-toggle" id="toggle-formulas">
+            <div class="toggle-indicator-dot"></div>
+            Equations
+          </button>
+        </div>
+        <div class="simulation-speed">
+          CALIB_MATRIX: <span>1.0x (AUTO)</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    SYSTEM_OPERATOR // BHAVESH MOHANDAS [KC]
+  </footer>
+
+  <!-- Code Logic -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      const canvas = document.getElementById('interactive-canvas');
+      const bgGrid = document.getElementById('bg-grid');
+      const btnExecute = document.getElementById('btn-execute');
+      const btnBlueprint = document.getElementById('btn-blueprint');
+      
+      const crosshairX = document.getElementById('crosshair-x');
+      const crosshairY = document.getElementById('crosshair-y');
+      const cTooltip = document.getElementById('c-tooltip');
+      const angleLine = document.getElementById('angle-line');
+      const angleSweepArc = document.getElementById('angle-sweep-arc');
+      const goldenTrackCircle = document.getElementById('golden-track-circle');
+      
+      // Floating Badges
+      const badgeRadians = document.getElementById('badge-radians');
+      const badgePhiVal = document.getElementById('badge-phi-val');
+      const badgeMatrix = document.getElementById('badge-matrix');
+      
+      // Stats dashboard numbers
+      const specPi = document.getElementById('spec-pi');
+      const specPhi = document.getElementById('spec-phi');
+
+      // Toggles
+      const toggleGrid = document.getElementById('toggle-grid');
+      const toggleSpiral = document.getElementById('toggle-spiral');
+      const toggleFormulas = document.getElementById('toggle-formulas');
+
+      // SVG elements
+      const goldenSpiralPath = document.getElementById('golden-spiral-path');
+      const sweepArcPath = document.getElementById('sweep-arc-path');
+      const radianRaysGroup = document.getElementById('radian-rays-group');
+      const piLogoGroup = document.getElementById('pi-logo');
+      const formulaOverlays = document.querySelectorAll('.formula-overlay');
+
+      const phi = 1.618033988749894;
+      const piVal = Math.PI;
+
+      let isBlueprintMode = true;
+      let isAnimating = false;
+
+      // -----------------------------------------------------------
+      // 1. DYNAMIC SVG BUILDERS: RADIAN RAYS AND GOLDEN SPIRAL
+      // -----------------------------------------------------------
+      
+      // Draw radial grid rays at multiples of PI / 4
+      function buildRadianRays() {
+        const angles = [
+          { val: 0, label: '0' },
+          { val: Math.PI / 4, label: 'π/4' },
+          { val: Math.PI / 2, label: 'π/2' },
+          { val: (3 * Math.PI) / 4, label: '3π/4' },
+          { val: Math.PI, label: 'π' },
+          { val: (5 * Math.PI) / 4, label: '5π/4' },
+          { val: (3 * Math.PI) / 2, label: '3π/2' },
+          { val: (7 * Math.PI) / 4, label: '7π/4' }
+        ];
+
+        angles.forEach(ang => {
+          const x2 = 300 + 260 * Math.cos(ang.val);
+          const y2 = 300 - 260 * Math.sin(ang.val); // negative because SVG coordinates are inverted
+
+          // Draw the ray line
+          const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+          line.setAttribute('x1', '300');
+          line.setAttribute('y1', '300');
+          line.setAttribute('x2', x2.toString());
+          line.setAttribute('y2', y2.toString());
+          line.setAttribute('class', 'radial-ray');
+          radianRaysGroup.appendChild(line);
+
+          // Add text labels on the outer edge (radius 278)
+          const lx = 300 + 278 * Math.cos(ang.val);
+          const ly = 300 - 278 * Math.sin(ang.val);
+
+          const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+          text.setAttribute('x', lx.toString());
+          text.setAttribute('y', ly.toString());
+          text.setAttribute('class', 'radian-label-svg');
+          text.textContent = ang.label;
+          radianRaysGroup.appendChild(text);
+        });
+      }
+
+      // Generate golden spiral SVG path using exponential polar coordinates: r = a * e^(b * theta)
+      // For a golden spiral, b = ln(phi) / (pi/2) = 2*ln(phi)/pi.
+      function generateGoldenSpiralPath() {
+        const centerX = 300;
+        const centerY = 300;
+        const scaleFactor = 1.35; // base starting scale
+        const b = (2 * Math.log(phi)) / Math.PI; 
+        
+        let pathD = "";
+        
+        // We calculate points from theta = 0 to 5.25 * PI (a little over 2.5 turns)
+        // Stepping by 0.02 radians for perfect smoothness
+        const maxTheta = 5.25 * Math.PI;
+        for (let theta = 0; theta <= maxTheta; theta += 0.02) {
+          const r = scaleFactor * Math.exp(b * theta);
+          
+          // Spiral winds outward clockwise. We map:
+          // X = CX + r * cos(theta)
+          // Y = CY + r * sin(theta)
+          const x = centerX + r * Math.cos(theta);
+          const y = centerY + r * Math.sin(theta);
+          
+          if (theta === 0) {
+            pathD += `M ${x.toFixed(2)} ${y.toFixed(2)}`;
+          } else {
+            pathD += ` L ${x.toFixed(2)} ${y.toFixed(2)}`;
+          }
+        }
+        
+        goldenSpiralPath.setAttribute('d', pathD);
+
+        // Prep the path for drawing animation by storing its total length in dash-array
+        const pathLength = goldenSpiralPath.getTotalLength();
+        goldenSpiralPath.style.strokeDasharray = pathLength;
+        goldenSpiralPath.style.strokeDashoffset = pathLength;
+      }
+
+      // Draw static circular path background sweep boundary
+      function initSweepArc() {
+        // Outer circular sweep of R=233
+        const r = 233;
+        const cx = 300;
+        const cy = 300;
+        
+        // Circular path d
+        const d = `M ${cx + r} ${cy} A ${r} ${r} 0 1 1 ${cx - r} ${cy} A ${r} ${r} 0 1 1 ${cx + r} ${cy}`;
+        sweepArcPath.setAttribute('d', d);
+        
+        const pathLength = sweepArcPath.getTotalLength();
+        sweepArcPath.style.strokeDasharray = pathLength;
+        sweepArcPath.style.strokeDashoffset = pathLength;
+      }
+
+      // -----------------------------------------------------------
+      // 2. CURSOR INTERACTION (REAL-TIME BLUEPRINT ENGRAVINGS)
+      // -----------------------------------------------------------
+      
+      canvas.addEventListener('mousemove', (e) => {
+        if (isAnimating) return; // disable during full sweep animation
+
+        const rect = canvas.getBoundingClientRect();
+        
+        // Get cursor coordinates relative to canvas center (300, 300)
+        // Scaled to match the relative sizing of coordinate bounding box
+        const clientX = e.clientX - rect.left;
+        const clientY = e.clientY - rect.top;
+
+        // Position crosshair lines
+        crosshairX.style.top = clientY + 'px';
+        crosshairX.style.opacity = '1';
+        
+        crosshairY.style.left = clientX + 'px';
+        crosshairY.style.opacity = '1';
+
+        // Floating tooltip offset slightly from cursor
+        cTooltip.style.left = clientX + 'px';
+        cTooltip.style.top = clientY + 'px';
+        cTooltip.style.opacity = '1';
+
+        // Math coords where center is (0,0) and boundaries are [-2PI, 2PI]
+        const w = rect.width;
+        const h = rect.height;
+        const cx = w / 2;
+        const cy = h / 2;
+        
+        // Offset coords (X positive right, Y positive up)
+        const dx = clientX - cx;
+        const dy = -(clientY - cy); 
+
+        // Scale factor: canvas width corresponds to 4 * PI space (from -2PI to +2PI)
+        const mathScale = (4 * Math.PI) / w;
+        const mathX = dx * mathScale;
+        const mathY = dy * mathScale;
+        const mathR = Math.sqrt(dx*dx + dy*dy) * mathScale;
+
+        // Update Matrix Badge: showing clean multiple of PI
+        const piX = (mathX / Math.PI).toFixed(2);
+        const piY = (mathY / Math.PI).toFixed(2);
+        badgeMatrix.innerHTML = `X: ${mathX.toFixed(2)} (${piX}&pi;) | Y: ${mathY.toFixed(2)} (${piY}&pi;)`;
+        cTooltip.innerHTML = `&theta; Sweep // X: ${piX}&pi;, Y: ${piY}&pi;`;
+
+        // Calculate sweep angle theta (from 0 to 2*PI radians)
+        // Math.atan2 takes (y, x) -> in our flipped canvas y direction
+        let theta = Math.atan2(dy, dx);
+        if (theta < 0) theta += 2 * Math.PI;
+
+        const radFraction = (theta / Math.PI).toFixed(2);
+        const degrees = (theta * 180 / Math.PI).toFixed(1);
+        badgeRadians.innerHTML = `${radFraction}&pi; rad (${degrees}&deg;)`;
+
+        // Draw dynamic coordinate lines inside SVG (visual guidance)
+        angleLine.setAttribute('x1', '300');
+        angleLine.setAttribute('y1', '300');
+        // Scale client cursor point into SVG viewport space (600x600)
+        const svgX = (clientX / w) * 600;
+        const svgY = (clientY / h) * 600;
+        angleLine.setAttribute('x2', svgX.toString());
+        angleLine.setAttribute('y2', svgY.toString());
+        angleLine.style.opacity = '1';
+
+        // Update the angle sweep arc path
+        // Draw slice arc from theta=0 to current angle
+        const arcRadius = 45;
+        const targetArcX = 300 + arcRadius * Math.cos(theta);
+        const targetArcY = 300 - arcRadius * Math.sin(theta);
+        const largeArcFlag = theta > Math.PI ? 1 : 0;
+        
+        const arcD = `M 345 300 A ${arcRadius} ${arcRadius} 0 ${largeArcFlag} 0 ${targetArcX} ${targetArcY}`;
+        angleSweepArc.setAttribute('d', arcD);
+        angleSweepArc.style.opacity = '1';
+
+        // Real-time Golden Ratio calculations
+        // Compute radius division ratios of cursor
+        const svgRadius = Math.sqrt(Math.pow(svgX - 300, 2) + Math.pow(svgY - 300, 2));
+        
+        // Highlight corresponding Fibonacci circles when hover matches radius
+        const circles = document.querySelectorAll('.math-circle');
+        let closestCircle = null;
+        let minDiff = Infinity;
+        
+        circles.forEach(circle => {
+          const r = parseFloat(circle.getAttribute('r'));
+          const diff = Math.abs(svgRadius - r);
+          circle.classList.remove('active-circle');
+          
+          if (diff < minDiff) {
+            minDiff = diff;
+            closestCircle = circle;
+          }
+        });
+
+        // Snap highlight circles if cursor is within 15px range
+        if (minDiff < 15 && closestCircle) {
+          closestCircle.classList.add('active-circle');
+        }
+
+        // Calculate and draw golden ratio counterpart (R / phi)
+        const phiRadius = svgRadius / phi;
+        goldenTrackCircle.setAttribute('r', phiRadius.toString());
+        goldenTrackCircle.style.opacity = '1';
+
+        // Update Golden Ratio Badge
+        const cursorPhiSplitA = (svgRadius / phi).toFixed(1);
+        const cursorPhiSplitB = (svgRadius - cursorPhiSplitA).toFixed(1);
+        badgePhiVal.innerHTML = `R: ${svgRadius.toFixed(0)}px = ${cursorPhiSplitB} + ${cursorPhiSplitA} (&phi; ratio)`;
+
+        // Highlight matching floating formula overlay
+        formulaOverlays.forEach(formula => {
+          formula.style.color = '';
+          formula.style.transform = '';
+        });
+
+        // Decide which math formula to highlight based on angle/quadrant
+        if (theta >= 0 && theta < Math.PI / 2) {
+          document.getElementById('f-circ').style.color = 'var(--color-teal)';
+          document.getElementById('f-circ').style.transform = 'scale(1.05)';
+        } else if (theta >= Math.PI / 2 && theta < Math.PI) {
+          document.getElementById('f-pi').style.color = 'var(--color-purple)';
+          document.getElementById('f-pi').style.transform = 'scale(1.05)';
+        } else if (theta >= Math.PI && theta < 3 * Math.PI / 2) {
+          document.getElementById('f-limit').style.color = 'var(--color-orange)';
+          document.getElementById('f-limit').style.transform = 'scale(1.05)';
+        } else {
+          document.getElementById('f-phi').style.color = 'var(--color-blue)';
+          document.getElementById('f-phi').style.transform = 'scale(1.05)';
+        }
+      });
+
+      canvas.addEventListener('mouseleave', () => {
+        if (isAnimating) return;
+        
+        // Hide all coordinate indicators
+        crosshairX.style.opacity = '0';
+        crosshairY.style.opacity = '0';
+        cTooltip.style.opacity = '0';
+        angleLine.style.opacity = '0';
+        angleSweepArc.style.opacity = '0';
+        goldenTrackCircle.style.opacity = '0';
+
+        // Reset badge values
+        badgeRadians.innerHTML = `0.00&pi; rad`;
+        badgePhiVal.innerHTML = `&phi; = 1.618`;
+        badgeMatrix.innerHTML = `X: 0.00 | Y: 0.00`;
+
+        // Clear active circle snaps
+        document.querySelectorAll('.math-circle').forEach(circle => {
+          circle.classList.remove('active-circle');
+        });
+
+        // Reset formulas opacity
+        formulaOverlays.forEach(formula => {
+          formula.style.color = '';
+          formula.style.transform = '';
+        });
+      });
+
+      // -----------------------------------------------------------
+      // 3. STEADY STATIC CONSTANT TICKERS
+      // -----------------------------------------------------------
+      
+      // Gradually count up spec values on page load
+      function runSpecTickers() {
+        animateNumbers(specPi, 3.1415926535, 1500, true);
+        animateNumbers(specPhi, 1.6180339887, 1500, true);
+      }
+
+      function animateNumbers(element, targetVal, duration, isFloat = false) {
+        const start = 0;
+        const startTime = performance.now();
+
+        function update(currentTime) {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          
+          // Ease out cubic
+          const easeProgress = 1 - Math.pow(1 - progress, 3);
+          const currentVal = start + (targetVal - start) * easeProgress;
+
+          if (isFloat) {
+            element.textContent = currentVal.toFixed(10);
+          } else {
+            element.textContent = Math.floor(currentVal).toString();
+          }
+
+          if (progress < 1) {
+            requestAnimationFrame(update);
+          } else {
+            element.textContent = targetVal.toString();
+          }
+        }
+
+        requestAnimationFrame(update);
+      }
+
+      // -----------------------------------------------------------
+      // 4. ANIMATION SEQUENCE: "BRING FULL CIRCLE"
+      // -----------------------------------------------------------
+      
+      function resetSweepAnimation() {
+        canvas.classList.remove('animating-active');
+        goldenSpiralPath.style.strokeDashoffset = goldenSpiralPath.getTotalLength();
+        sweepArcPath.style.strokeDashoffset = sweepArcPath.getTotalLength();
+        
+        piLogoGroup.querySelector('.pi-path-glow').style.opacity = '0';
+        piLogoGroup.querySelector('.pi-path-solid').style.fill = 'rgba(255, 255, 255, 0.9)';
+        piLogoGroup.querySelector('.pi-path-solid').style.filter = '';
+        
+        isAnimating = false;
+        btnExecute.innerHTML = `
+          <span class="btn-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 3 19 12 15 13 9 19 5 3"/>
+            </svg>
+          </span>
+          Execute Full Circle
+        `;
+      }
+
+      function triggerFullCircleAnimation() {
+        if (isAnimating) {
+          resetSweepAnimation();
+          return;
+        }
+
+        isAnimating = true;
+        btnExecute.textContent = "Reset Simulation";
+        canvas.classList.add('animating-active');
+
+        // Reset tooltip overlays
+        crosshairX.style.opacity = '0';
+        crosshairY.style.opacity = '0';
+        cTooltip.style.opacity = '0';
+        angleLine.style.opacity = '0';
+        angleSweepArc.style.opacity = '0';
+        goldenTrackCircle.style.opacity = '0';
+
+        // Trigger flash screen impact overlay inside canvas
+        const flash = document.getElementById('flash-effect');
+        flash.classList.remove('flash-trigger');
+        void flash.offsetWidth; // trigger reflow
+        flash.classList.add('flash-trigger');
+
+        // Animate coordinate badges to match progress states
+        let duration = 2500;
+        let startTime = performance.now();
+
+        function animateBadges(currentTime) {
+          if (!isAnimating) return;
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          
+          const angle = progress * 2 * Math.PI;
+          const radFraction = (angle / Math.PI).toFixed(2);
+          const degrees = (angle * 180 / Math.PI).toFixed(1);
+          
+          badgeRadians.innerHTML = `${radFraction}&pi; rad (${degrees}&deg;)`;
+          
+          const activeRadius = progress * 233;
+          const activePhiA = (activeRadius / phi).toFixed(1);
+          const activePhiB = (activeRadius - activePhiA).toFixed(1);
+          badgePhiVal.innerHTML = `Sweep R: ${activeRadius.toFixed(0)}px (&phi; proportional)`;
+
+          const matrixProgress = (progress * 2 * Math.PI).toFixed(2);
+          badgeMatrix.innerHTML = `Cos: ${Math.cos(angle).toFixed(2)} | Sin: ${Math.sin(angle).toFixed(2)}`;
+
+          if (progress < 1) {
+            requestAnimationFrame(animateBadges);
+          } else {
+            badgeRadians.innerHTML = `2.00&pi; rad (360.0&deg;)`;
+            badgePhiVal.innerHTML = `Golden Loop Closed // &phi; Sync`;
+            badgeMatrix.innerHTML = `SYS // CALIBRATION_COMPLETE`;
+          }
+        }
+        
+        requestAnimationFrame(animateBadges);
+      }
+
+      btnExecute.addEventListener('click', triggerFullCircleAnimation);
+
+      // -----------------------------------------------------------
+      // 5. BLUEPRINT MODE AND COMPONENT TOGGLES
+      // -----------------------------------------------------------
+      
+      // Blueprint mode strips down layout guidelines
+      btnBlueprint.addEventListener('click', () => {
+        isBlueprintMode = !isBlueprintMode;
+        if (isBlueprintMode) {
+          btnBlueprint.classList.remove('btn-secondary');
+          btnBlueprint.classList.add('btn-primary');
+          btnBlueprint.style.backgroundColor = 'var(--bg-panel)';
+          btnBlueprint.style.color = 'var(--color-teal)';
+          btnBlueprint.style.borderColor = 'rgba(10, 207, 131, 0.3)';
+          btnBlueprint.textContent = "Blueprint: ON";
+          
+          // Re-enable blueprints
+          document.querySelectorAll('.math-circle').forEach(c => c.style.display = '');
+          radianRaysGroup.style.display = '';
+          document.querySelectorAll('.axis-line').forEach(l => l.style.display = '');
+          document.querySelector('.origin-label').style.display = '';
+        } else {
+          btnBlueprint.classList.remove('btn-primary');
+          btnBlueprint.classList.add('btn-secondary');
+          btnBlueprint.style.backgroundColor = '';
+          btnBlueprint.style.color = '';
+          btnBlueprint.style.borderColor = '';
+          btnBlueprint.textContent = "Blueprint: OFF";
+
+          // Hide radial guides
+          document.querySelectorAll('.math-circle').forEach(c => c.style.display = 'none');
+          radianRaysGroup.style.display = 'none';
+          document.querySelectorAll('.axis-line').forEach(l => l.style.display = 'none');
+          document.querySelector('.origin-label').style.display = 'none';
+        }
+      });
+
+      // Individual dashboard deck triggers
+      toggleGrid.addEventListener('click', () => {
+        toggleGrid.classList.toggle('active-toggle');
+        bgGrid.style.opacity = toggleGrid.classList.contains('active-toggle') ? '1' : '0';
+      });
+
+      toggleSpiral.addEventListener('click', () => {
+        toggleSpiral.classList.toggle('active-toggle');
+        goldenSpiralPath.style.opacity = toggleSpiral.classList.contains('active-toggle') ? '1' : '0';
+      });
+
+      toggleFormulas.addEventListener('click', () => {
+        toggleFormulas.classList.toggle('active-toggle');
+        formulaOverlays.forEach(overlay => {
+          overlay.style.opacity = toggleFormulas.classList.contains('active-toggle') ? '1' : '0';
+        });
+      });
+
+      // Initialize on load
+      buildRadianRays();
+      generateGoldenSpiralPath();
+      initSweepArc();
+      runSpecTickers();
+
+      // Trigger blueprint default style
+      btnBlueprint.click();
+    });
+  </script>
+</body>
+</html>
