@@ -300,7 +300,7 @@ img { max-width: 100%; display: block; }
 }
 
 .hero-title .gradient-text {
-  background: linear-gradient(135deg, #fff 20%, var(--accent-purple) 50%, var(--accent-teal) 80%);
+  background: linear-gradient(135deg, #ffffff 30%, #0acf83 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -451,7 +451,7 @@ img { max-width: 100%; display: block; }
   font-size: clamp(40px, 6vw, 64px);
   font-weight: 800;
   letter-spacing: -3px;
-  background: linear-gradient(135deg, var(--accent-teal), var(--accent-purple));
+  background: linear-gradient(135deg, #0acf83, #0a84ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -688,6 +688,186 @@ img { max-width: 100%; display: block; }
 .accent-gold .card-glow { background: radial-gradient(circle at 50% 30%, var(--accent-gold), transparent 70%); }
 
 /* =============================================================
+   COMING SOON CARDS
+   ============================================================= */
+.coming-soon-header {
+  position: relative;
+  z-index: 2;
+  padding: 100px 24px 60px;
+  text-align: center;
+}
+
+.coming-soon-grid {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 100px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 24px;
+}
+
+.coming-soon-card {
+  position: relative;
+  border-radius: 24px;
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow: hidden;
+  background: transparent;
+  border: 2px dashed rgba(255,255,255,0.08);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.coming-soon-card::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 26px;
+  background: conic-gradient(from var(--shimmer-angle, 0deg), transparent 0%, rgba(10,207,131,0.15) 10%, transparent 20%);
+  z-index: -1;
+  animation: shimmerRotate 4s linear infinite;
+}
+
+@keyframes shimmerRotate {
+  0% { --shimmer-angle: 0deg; }
+  100% { --shimmer-angle: 360deg; }
+}
+
+@property --shimmer-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.coming-soon-card:hover {
+  border-color: rgba(10,207,131,0.2);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(10,207,131,0.06);
+}
+
+.coming-soon-card .card-shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 20%,
+    rgba(255,255,255,0.015) 40%,
+    rgba(255,255,255,0.03) 50%,
+    rgba(255,255,255,0.015) 60%,
+    transparent 80%
+  );
+  animation: shimmerSlide 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmerSlide {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.coming-soon-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  font-family: 'Fira Code', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #0acf83;
+  padding: 6px 14px;
+  border-radius: 30px;
+  border: 1px solid rgba(10,207,131,0.25);
+  background: rgba(10,207,131,0.06);
+}
+
+.coming-soon-badge .pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #0acf83;
+  animation: pulseDot 2s ease-in-out infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.4); }
+}
+
+.coming-soon-card .cs-category {
+  font-family: 'Fira Code', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #55555e;
+}
+
+.coming-soon-card .cs-title {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: clamp(26px, 3.5vw, 38px);
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+  color: #f0f0f3;
+}
+
+.coming-soon-card .cs-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #8a8a93;
+  font-style: italic;
+}
+
+.coming-soon-card .cs-desc {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #8a8a93;
+}
+
+.coming-soon-card .cs-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.coming-soon-card .cs-tag {
+  font-family: 'Fira Code', monospace;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  padding: 5px 12px;
+  border-radius: 30px;
+  border: 1px dashed rgba(255,255,255,0.08);
+  color: #55555e;
+  transition: all 0.3s;
+}
+
+.coming-soon-card:hover .cs-tag {
+  border-color: rgba(255,255,255,0.12);
+  color: #8a8a93;
+}
+
+.cs-label-soon {
+  font-family: 'Fira Code', monospace;
+  font-size: 11px;
+  color: #0acf83;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+@media (max-width: 640px) {
+  .coming-soon-grid {
+    grid-template-columns: 1fr;
+    padding: 0 16px 80px;
+  }
+  .coming-soon-card { padding: 36px 28px; }
+}
+
+/* =============================================================
    CONTACT / FOOTER
    ============================================================= */
 .contact-section {
@@ -712,7 +892,7 @@ img { max-width: 100%; display: block; }
 }
 
 .contact-title .gradient-text {
-  background: linear-gradient(135deg, var(--accent-teal), var(--accent-purple));
+  background: linear-gradient(135deg, #0acf83, #0a84ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
