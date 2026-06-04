@@ -3,2019 +3,476 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bhavesh Mohandas</title>
-  <meta name="description" content="A customizable CV, Blog, and Projects portfolio framework featuring an interactive neural expressive background.">
-  
-  <!-- Google Fonts: Outfit for display, Inter for UI, Fira Code for math/dev variables -->
+  <title>circl. — Design & Engineering</title>
+  <meta name="description" content="circl. is a design and engineering studio building games, AI systems, and interactive web experiences.">
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <style>
-    /* -------------------------------------------------------------
-       Design System & CSS Custom Variables (Apple-esque Dark)
-    ------------------------------------------------------------- */
-    :root {
-      /* Colors: Apple Dark Theme Palette */
-      --bg-darkest: #000000;    /* Pure Black */
-      --bg-panel: #161617;      /* Dark Zinc Slate (Apple card) */
-      --bg-card-hover: #1c1c1e; /* Zinc-900 highlight */
-      --border-color: #212124;  /* Thin gray divider */
-      --border-focus: #424245;  /* Zinc-600 */
-      
-      --text-primary: #f5f5f7;   /* Apple off-white */
-      --text-secondary: #86868b; /* Apple gray */
-      --text-muted: #6e6e73;     /* Apple dark gray */
-      
-      /* Vibrant Accents */
-      --color-purple: #a259ff;
-      --color-teal: #0acf83;
-      --color-orange: #f24e1e;
-      --color-blue: #0a84ff;
-      
-      --brand-gradient: linear-gradient(135deg, var(--color-teal) 0%, var(--color-purple) 50%, var(--color-orange) 100%);
-      --glow-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-    }
-
-    /* Base Reset & Styling */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: var(--bg-darkest);
-      color: var(--text-primary);
-      min-height: 100vh;
-      overflow-x: hidden;
-      position: relative;
-      letter-spacing: -0.01em;
-    }
-
-    /* -------------------------------------------------------------
-       Neural Expressive Background Canvas (Subdued)
-    ------------------------------------------------------------- */
-    #neural-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 1;
-      pointer-events: none;
-      opacity: 0.25;
-      transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    /* Subtle grid layout overlays */
-    .bg-grid-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-image: radial-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-      background-size: 40px 40px;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    /* -------------------------------------------------------------
-       Interactive Entry Splash Screen
-    ------------------------------------------------------------- */
-    #splash-portal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 200;
-      text-align: center;
-      padding: 24px;
-      background-color: var(--bg-darkest);
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s;
-    }
-
-    .splash-container {
-      max-width: 800px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 32px;
-    }
-
-    .splash-logo {
-      font-family: 'Outfit', sans-serif;
-      font-weight: 700;
-      font-size: 24px;
-      letter-spacing: -0.5px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.8s 0.2s forwards cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .logo-gradient-text {
-      background: var(--brand-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .logo-circle-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background-color: var(--color-teal);
-      box-shadow: 0 0 10px var(--color-teal);
-    }
-
-    .splash-title {
-      font-family: 'Outfit', sans-serif;
-      font-weight: 800;
-      font-size: clamp(40px, 8vw, 88px);
-      line-height: 1.05;
-      letter-spacing: -2px;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.8s 0.4s forwards cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .splash-title span.gradient-span {
-      background: linear-gradient(135deg, #ffffff 40%, var(--color-purple) 85%, var(--color-teal) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .splash-subtitle {
-      font-size: clamp(14px, 2.5vw, 18px);
-      font-weight: 400;
-      color: var(--text-secondary);
-      max-width: 600px;
-      line-height: 1.5;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.8s 0.6s forwards cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .btn-enter-portal {
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      font-weight: 500;
-      color: #000000;
-      background-color: #ffffff;
-      border: 1px solid #ffffff;
-      padding: 14px 36px;
-      border-radius: 30px; /* Rounded pill style (Apple) */
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.8s 0.8s forwards cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .btn-enter-portal:hover {
-      background-color: transparent;
-      color: #ffffff;
-      border-color: #ffffff;
-    }
-
-    .btn-enter-portal svg {
-      transition: transform 0.25s ease;
-    }
-
-    .btn-enter-portal:hover svg {
-      transform: translateX(4px);
-    }
-
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* -------------------------------------------------------------
-       SPA Header Navigation (Subpages only)
-    ------------------------------------------------------------- */
-    nav {
-      position: sticky;
-      top: 0;
-      width: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border-color);
-      z-index: 100;
-      display: none; /* Injected by Router on subpages */
-    }
-
-    .nav-container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 18px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .nav-logo {
-      font-family: 'Outfit', sans-serif;
-      font-weight: 700;
-      font-size: 19px;
-      letter-spacing: -0.5px;
-      color: var(--text-primary);
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 36px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-family: 'Inter', sans-serif;
-      font-size: 13.5px;
-      font-weight: 400;
-      color: var(--text-secondary);
-      text-decoration: none;
-      transition: color 0.2s ease;
-    }
-
-    .nav-links a:hover,
-    .nav-links a.active-link {
-      color: var(--text-primary);
-    }
-
-    /* -------------------------------------------------------------
-       SPA PAGE CONTAINERS
-    ------------------------------------------------------------- */
-    .spa-page-view {
-      display: none;
-      opacity: 0;
-      transform: translateY(20px);
-      z-index: 2;
-      position: relative;
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .spa-page-view.view-active {
-      display: block;
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Generous Apple Spacing wrapper */
-    .page-layout-wrapper {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 120px 24px 160px 24px;
-    }
-
-    /* Apple Title block */
-    .page-header-block {
-      margin-bottom: 70px;
-      max-width: 800px;
-    }
-
-    .page-label {
-      font-family: 'Fira Code', monospace;
-      font-size: 11px;
-      color: var(--color-teal);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 12px;
-      display: block;
-    }
-
-    .page-title {
-      font-family: 'Outfit', sans-serif;
-      font-weight: 800;
-      font-size: clamp(38px, 6.5vw, 68px);
-      letter-spacing: -2.5px;
-      line-height: 1.1;
-      color: var(--text-primary);
-    }
-
-    .page-subtitle {
-      font-size: 19px;
-      font-weight: 400;
-      color: var(--text-secondary);
-      margin-top: 16px;
-      line-height: 1.5;
-    }
-
-    /* -------------------------------------------------------------
-       1. DIRECTORY PAGE ("What are you here for?")
-    ------------------------------------------------------------- */
-    .directory-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin-top: 50px;
-    }
-
-    .directory-card {
-      background-color: var(--bg-panel);
-      border: 1px solid var(--border-color);
-      border-radius: 18px; /* Elegant roundness (Apple) */
-      padding: 40px 32px;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-      text-decoration: none;
-      color: var(--text-primary);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      position: relative;
-    }
-
-    .directory-card:hover {
-      background-color: var(--bg-card-hover);
-      border-color: var(--border-focus);
-      transform: translateY(-4px);
-    }
-
-    .directory-card-label {
-      font-family: 'Fira Code', monospace;
-      font-size: 10px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .directory-card-title {
-      font-family: 'Outfit', sans-serif;
-      font-weight: 600;
-      font-size: 26px;
-      letter-spacing: -1px;
-    }
-
-    .directory-card-desc {
-      font-size: 14.5px;
-      line-height: 1.6;
-      color: var(--text-secondary);
-      flex-grow: 1;
-    }
-
-    .directory-card-link {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text-primary);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .directory-card:hover .directory-card-link {
-      color: #ffffff;
-    }
-
-    .directory-card-link svg {
-      transition: transform 0.25s ease;
-    }
-
-    .directory-card:hover .directory-card-link svg {
-      transform: translateX(4px);
-    }
-
-    /* -------------------------------------------------------------
-       2. ABOUT & CV PAGE
-    ------------------------------------------------------------- */
-    .about-layout {
-      display: grid;
-      grid-template-columns: 1.25fr 0.75fr;
-      gap: 64px;
-      align-items: start;
-    }
-
-    .about-bio-column {
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
-    }
-
-    .about-bio-text {
-      font-size: 17px;
-      line-height: 1.7;
-      color: var(--text-secondary);
-    }
-
-    /* Apple Timeline */
-    .timeline-container {
-      position: relative;
-      padding-left: 28px;
-      margin-top: 36px;
-    }
-
-    .timeline-line {
-      position: absolute;
-      left: 5px;
-      top: 4px;
-      bottom: 4px;
-      width: 1px;
-      background-color: var(--border-color);
-    }
-
-    .timeline-item {
-      position: relative;
-      margin-bottom: 50px;
-    }
-
-    .timeline-item:last-child {
-      margin-bottom: 0;
-    }
-
-    .timeline-dot {
-      position: absolute;
-      left: -28px;
-      top: 5px;
-      width: 11px;
-      height: 11px;
-      border-radius: 50%;
-      background-color: var(--bg-darkest);
-      border: 2px solid var(--border-color);
-      transition: border-color 0.2s ease, background-color 0.2s ease;
-    }
-
-    .timeline-item:hover .timeline-dot {
-      border-color: #ffffff;
-      background-color: #ffffff;
-    }
-
-    .timeline-header {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 10px;
-      gap: 8px;
-    }
-
-    .timeline-role-company {
-      font-size: 17px;
-      font-weight: 600;
-      color: var(--text-primary);
-    }
-
-    .timeline-company {
-      color: var(--color-teal);
-    }
-
-    .timeline-period {
-      font-family: 'Fira Code', monospace;
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    .timeline-description {
-      font-size: 14.5px;
-      line-height: 1.6;
-      color: var(--text-secondary);
-    }
-
-    .about-section-title {
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-muted);
-      margin-bottom: 16px;
-      font-family: 'Fira Code', monospace;
-    }
-
-    .cv-tags-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .cv-tag {
-      font-size: 13.5px;
-      background-color: var(--bg-panel);
-      border: 1px solid var(--border-color);
-      color: var(--text-secondary);
-      padding: 7px 14px;
-      border-radius: 20px;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .cv-tag:hover {
-      border-color: var(--color-teal);
-      color: var(--text-primary);
-      background-color: rgba(10, 207, 131, 0.03);
-    }
-
-    /* Calibration Specs Panel */
-    .calibration-widget-panel {
-      background-color: var(--bg-panel);
-      border: 1px solid var(--border-color);
-      border-radius: 18px;
-      padding: 32px 28px;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    .widget-header-text {
-      font-family: 'Fira Code', monospace;
-      font-size: 10px;
-      color: var(--text-muted);
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 14px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .widget-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .widget-label {
-      font-size: 12.5px;
-      color: var(--text-secondary);
-    }
-
-    .widget-value {
-      font-family: 'Fira Code', monospace;
-      font-size: 12.5px;
-    }
-
-    .widget-value.color-active {
-      color: var(--color-teal);
-    }
-
-    .widget-slider-container {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .widget-slider-header {
-      display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-      color: var(--text-secondary);
-    }
-
-    .widget-slider {
-      width: 100%;
-      -webkit-appearance: none;
-      appearance: none;
-      height: 2px;
-      background: var(--border-color);
-      outline: none;
-    }
-
-    .widget-slider::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: #ffffff;
-      cursor: pointer;
-      transition: transform 0.15s ease;
-    }
-
-    .widget-slider::-webkit-slider-thumb:hover {
-      transform: scale(1.35);
-    }
-
-    /* -------------------------------------------------------------
-       3. PROJECTS SHOWCASE PAGE
-    ------------------------------------------------------------- */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 28px;
-    }
-
-    .project-card {
-      background-color: var(--bg-panel);
-      border: 1px solid var(--border-color);
-      border-radius: 18px;
-      padding: 40px 36px;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-      text-decoration: none;
-      color: var(--text-primary);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .project-card:hover {
-      background-color: var(--bg-card-hover);
-      border-color: var(--border-focus);
-      transform: translateY(-4px);
-    }
-
-    .project-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-    }
-
-    .project-category {
-      font-family: 'Fira Code', monospace;
-      font-size: 10px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .project-title {
-      font-family: 'Outfit', sans-serif;
-      font-weight: 600;
-      font-size: 22px;
-      letter-spacing: -0.5px;
-      margin-top: 6px;
-    }
-
-    .project-description {
-      font-size: 14.5px;
-      line-height: 1.6;
-      color: var(--text-secondary);
-      flex-grow: 1;
-    }
-
-    .project-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .tag {
-      font-family: 'Fira Code', monospace;
-      font-size: 10px;
-      background-color: var(--bg-darkest);
-      border: 1px solid var(--border-color);
-      color: var(--text-secondary);
-      padding: 4px 8px;
-      border-radius: 4px;
-    }
-
-    .project-link {
-      align-self: flex-start;
-      font-size: 12.5px;
-      font-weight: 500;
-      color: var(--text-primary);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .project-card:hover .project-link {
-      color: #ffffff;
-    }
-
-    /* -------------------------------------------------------------
-       4. BLOG HUB CONTENT PAGE
-    ------------------------------------------------------------- */
-    .blog-controls-wrapper {
-      background-color: var(--bg-panel);
-      border: 1px solid var(--border-color);
-      border-radius: 18px;
-      padding: 28px;
-      margin-bottom: 48px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .blog-search-row {
-      width: 100%;
-    }
-
-    .blog-search-input {
-      width: 100%;
-      background-color: var(--bg-darkest);
-      border: 1px solid var(--border-color);
-      color: var(--text-primary);
-      padding: 14px 20px;
-      border-radius: 8px;
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      outline: none;
-      transition: border-color 0.25s ease;
-    }
-
-    .blog-search-input:focus {
-      border-color: var(--border-focus);
-    }
-
-    .blog-filter-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    .topic-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .topic-pill {
-      font-family: 'Fira Code', monospace;
-      font-size: 11px;
-      background-color: var(--bg-darkest);
-      border: 1px solid var(--border-color);
-      color: var(--text-secondary);
-      padding: 6px 14px;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .topic-pill:hover {
-      border-color: var(--border-focus);
-      color: var(--text-primary);
-    }
-
-    .topic-pill.active-pill {
-      background-color: #ffffff;
-      color: #000000;
-      border-color: #ffffff;
-    }
-
-    .blog-sort-select {
-      background-color: var(--bg-darkest);
-      border: 1px solid var(--border-color);
-      color: var(--text-primary);
-      padding: 8px 14px;
-      border-radius: 6px;
-      font-family: 'Inter', sans-serif;
-      font-size: 12.5px;
-      outline: none;
-      cursor: pointer;
-      transition: border-color 0.2s ease;
-    }
-
-    .blog-sort-select:focus {
-      border-color: var(--border-focus);
-    }
-
-    .blog-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-
-    .blog-card {
-      background-color: var(--bg-panel);
-      border: 1px solid var(--border-color);
-      border-radius: 18px;
-      padding: 32px 28px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      text-decoration: none;
-      color: var(--text-primary);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .blog-card:hover {
-      background-color: var(--bg-card-hover);
-      border-color: var(--border-focus);
-      transform: translateY(-4px);
-    }
-
-    .blog-meta {
-      display: flex;
-      justify-content: space-between;
-      font-family: 'Fira Code', monospace;
-      font-size: 10px;
-      color: var(--text-muted);
-    }
-
-    .blog-card-title {
-      font-family: 'Outfit', sans-serif;
-      font-weight: 600;
-      font-size: 18px;
-      line-height: 1.4;
-      margin-top: 4px;
-    }
-
-    .blog-summary {
-      font-size: 13.5px;
-      line-height: 1.55;
-      color: var(--text-secondary);
-      flex-grow: 1;
-    }
-
-    .blog-card-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
-    }
-
-    .blog-card-tag {
-      font-family: 'Fira Code', monospace;
-      font-size: 8.5px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .blog-card-tag::after {
-      content: ' •';
-    }
-
-    .blog-card-tag:last-child::after {
-      content: '';
-    }
-
-    .blog-readmore {
-      align-self: flex-start;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--text-primary);
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    /* -------------------------------------------------------------
-       5. DEDICATED BLOG ARTICLE PAGE (Big Hero Layout)
-    ------------------------------------------------------------- */
-    #blog-post-page {
-      background-color: var(--bg-darkest);
-    }
-
-    /* Big Hero section headers */
-    .article-hero-header {
-      width: 100%;
-      background: radial-gradient(circle at top, rgba(162, 89, 255, 0.08) 0%, rgba(10, 207, 131, 0.01) 50%, transparent 100%);
-      border-bottom: 1px solid var(--border-color);
-      padding: 120px 24px 80px 24px;
-      text-align: center;
-      position: relative;
-    }
-
-    .article-hero-container {
-      max-width: 800px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .back-btn-row {
-      align-self: flex-start;
-      margin-bottom: 24px;
-    }
-
-    .back-nav-link {
-      font-family: 'Fira Code', monospace;
-      font-size: 11.5px;
-      color: var(--text-secondary);
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: color 0.2s ease;
-    }
-
-    .back-nav-link:hover {
-      color: var(--text-primary);
-    }
-
-    .article-hero-meta {
-      font-family: 'Fira Code', monospace;
-      font-size: 12px;
-      color: var(--color-purple);
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-    }
-
-    .article-hero-title {
-      font-family: 'Outfit', sans-serif;
-      font-weight: 800;
-      font-size: clamp(32px, 6vw, 56px);
-      line-height: 1.15;
-      letter-spacing: -2px;
-      color: var(--text-primary);
-      max-width: 760px;
-    }
-
-    .article-hero-tags {
-      display: flex;
-      gap: 12px;
-      margin-top: 8px;
-    }
-
-    .article-hero-tag {
-      font-family: 'Fira Code', monospace;
-      font-size: 10px;
-      background-color: var(--bg-panel);
-      border: 1px solid var(--border-color);
-      color: var(--text-secondary);
-      padding: 4px 10px;
-      border-radius: 4px;
-    }
-
-    .article-body-container {
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 60px 24px 140px 24px;
-    }
-
-    .article-body {
-      font-size: 17px;
-      line-height: 1.8;
-      color: var(--text-secondary);
-    }
-
-    .article-body p {
-      margin-bottom: 28px;
-    }
-
-    .article-body h2, .article-body h3 {
-      font-family: 'Outfit', sans-serif;
-      color: var(--text-primary);
-      margin: 48px 0 20px 0;
-      letter-spacing: -0.5px;
-    }
-
-    .article-body h2 {
-      font-size: 26px;
-    }
-
-    .article-body h3 {
-      font-size: 21px;
-    }
-
-    /* -------------------------------------------------------------
-       Footer
-    ------------------------------------------------------------- */
-    footer {
-      border-top: 1px solid var(--border-color);
-      background-color: var(--bg-darkest);
-      z-index: 2;
-      position: relative;
-    }
-
-    .footer-container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 60px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    .footer-credit {
-      font-family: 'Fira Code', monospace;
-      font-size: 10.5px;
-      color: var(--text-muted);
-      letter-spacing: 0.5px;
-    }
-
-    .footer-socials {
-      display: flex;
-      gap: 24px;
-    }
-
-    .social-link {
-      font-family: 'Inter', sans-serif;
-      font-size: 12.5px;
-      font-weight: 400;
-      color: var(--text-secondary);
-      text-decoration: none;
-      transition: color 0.2s ease;
-    }
-
-    .social-link:hover {
-      color: var(--text-primary);
-    }
-
-    /* -------------------------------------------------------------
-       Responsive Breakpoints
-    ------------------------------------------------------------- */
-    @media (max-width: 1024px) {
-      .directory-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
-
-      .about-layout {
-        grid-template-columns: 1fr;
-        gap: 50px;
-      }
-      
-      .projects-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .blog-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 640px) {
-      .nav-container {
-        flex-direction: column;
-        gap: 16px;
-      }
-
-      .nav-links {
-        gap: 20px;
-      }
-
-      .page-layout-wrapper {
-        padding: 80px 16px;
-      }
-
-      .blog-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .blog-filter-row {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .footer-container {
-        flex-direction: column;
-        text-align: center;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Dotted Blueprint Grid -->
-  <div class="bg-grid-overlay"></div>
+  <!-- Scroll Progress -->
+  <div id="scroll-progress"></div>
 
-  <!-- Neural Network Backdrop Canvas -->
+  <!-- Vertical Section Nav (visible after hero) -->
+  <div class="section-nav" id="section-nav">
+    <div class="section-nav-inner">
+      <a href="#about" class="section-nav-item" data-section="about">About</a>
+      <a href="#profile" class="section-nav-item" data-section="profile">Profile</a>
+      <a href="#projects" class="section-nav-item" data-section="projects">Projects</a>
+      <a href="#contact" class="section-nav-item" data-section="contact">Contact</a>
+    </div>
+  </div>
+
+  <!-- Neural Canvas Backdrop -->
   <canvas id="neural-canvas"></canvas>
 
-  <!-- -----------------------------------------------------------
-       Splash Screen Page (Initial Entry Portal)
-  ------------------------------------------------------------ -->
-  <section id="splash-portal">
-    <div class="splash-container">
-      <div class="splash-logo">
-        <span class="logo-gradient-text" id="splash-logo-name">circl</span>
-        <div class="logo-circle-dot"></div>
-      </div>
-      
-      <h1 class="splash-title">
-        <span class="gradient-span" id="splash-hero-title">welcome.</span>
+  <!-- Floating Navigation -->
+  <nav class="floating-nav" id="floating-nav">
+    <div class="nav-brand">
+      <span>circl</span>
+      <div class="dot"></div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#profile">Profile</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ============================================
+       HERO
+  ============================================= -->
+  <section class="hero" id="hero">
+    <div class="hero-bg-shapes">
+      <div class="hero-shape hero-shape-1"></div>
+      <div class="hero-shape hero-shape-2"></div>
+      <div class="hero-shape hero-shape-3"></div>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-label">Design × Engineering × Systems</div>
+
+      <h1 class="hero-title">
+        <span class="gradient-text">circl.</span>
       </h1>
-      
-      <p class="splash-subtitle" id="splash-hero-subtitle">
-        great things are in progress // coming full circle
+
+      <p class="hero-subtitle">
+        We build games, AI architectures, and interactive systems that push the boundaries of what software can feel like.
       </p>
-      
-      <button class="btn-enter-portal" id="btn-enter">
-        Enter Portal
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-          <polyline points="12 5 19 12 12 19"></polyline>
-        </svg>
-      </button>
+
+      <div class="hero-cta-row">
+        <a href="#projects" class="btn-primary">
+          View Projects
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="#contact" class="btn-ghost">Get in Touch</a>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
     </div>
   </section>
 
-  <!-- Navigation Header (Displayed only inside Subpages) -->
-  <nav id="site-navigation">
-    <div class="nav-container">
-      <a class="nav-logo" href="#/directory">
-        <span class="logo-gradient-text" id="nav-brand-name">circl</span>
-        <div class="logo-circle-dot"></div>
-      </a>
-      
-      <ul class="nav-links">
-        <li><a href="#/about" id="nav-link-about">About</a></li>
-        <li><a href="#/projects" id="nav-link-projects">Projects</a></li>
-        <li><a href="#/blog" id="nav-link-blog">Blog</a></li>
-      </ul>
+  <!-- ============================================
+       ABOUT STRIP
+  ============================================= -->
+  <section class="about-strip" id="about">
+    <div class="section-inner">
+      <p class="about-text reveal">
+        <strong>circl.</strong> is where design meets rigorous engineering. We craft <strong>games</strong>, <strong>AI middleware</strong>, and <strong>interactive tools</strong> — obsessing over every pixel, every algorithm, every interaction until it feels right.
+      </p>
+
+      <div class="stats-row stagger-children">
+        <div class="stat-item reveal">
+          <div class="stat-number" data-count="6" data-suffix="+">0+</div>
+          <div class="stat-label">Projects Shipped</div>
+        </div>
+        <div class="stat-item reveal">
+          <div class="stat-number" data-count="12" data-suffix="k">0k</div>
+          <div class="stat-label">Lines of Code</div>
+        </div>
+        <div class="stat-item reveal">
+          <div class="stat-number" data-count="4">0</div>
+          <div class="stat-label">Tech Domains</div>
+        </div>
+      </div>
     </div>
-  </nav>
+  </section>
 
-  <!-- -----------------------------------------------------------
-       1. DIRECTORY PAGE VIEW (Choose Your Path Dashboard)
-  ------------------------------------------------------------ -->
-  <div id="directory-page" class="spa-page-view">
-    <div class="page-layout-wrapper">
-      
-      <div class="page-header-block">
-        <span class="page-label">System Directory</span>
-        <h2 class="page-title">What are you here for?</h2>
-        <p class="page-subtitle">Select a dedicated workspace node to explore my background, technical outputs, and engineering essays.</p>
-      </div>
+  <div class="section-divider"></div>
 
-      <div class="directory-grid">
-        <!-- Card 1: About -->
-        <a class="directory-card" href="#/about">
-          <div class="directory-card-label">Node // 01</div>
-          <h3 class="directory-card-title">About & CV</h3>
-          <p class="directory-card-desc">Inspect credentials, career milestones, timeline of experiences, and adjust neural engine calibrations.</p>
-          <span class="directory-card-link">
-            Explore Profile
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </span>
-        </a>
+  <!-- ============================================
+       PROFILE — CV & Experience
+  ============================================= -->
+  <section class="profile-section" id="profile">
+    <div class="profile-inner">
 
-        <!-- Card 2: Projects -->
-        <a class="directory-card" href="#/projects">
-          <div class="directory-card-label">Node // 02</div>
-          <h3 class="directory-card-title">Projects</h3>
-          <p class="directory-card-desc">Examine game engines, local-first syncing lens structures, text diagnostics, and coordinate geometry tools.</p>
-          <span class="directory-card-link">
-            View Showcase
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </span>
-        </a>
-
-        <!-- Card 3: Writings -->
-        <a class="directory-card" href="#/blog">
-          <div class="directory-card-label">Node // 03</div>
-          <h3 class="directory-card-title">Writings</h3>
-          <p class="directory-card-desc">Read articles detailing UI design math models, decentralized conflict replication (CRDTs), and canvas physics.</p>
-          <span class="directory-card-link">
-            Open Writings
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </span>
-        </a>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- -----------------------------------------------------------
-       2. ABOUT & CV TIMELINE VIEW
-  ------------------------------------------------------------ -->
-  <div id="about-page" class="spa-page-view">
-    <div class="page-layout-wrapper">
-      
-      <div class="page-header-block">
-        <span class="page-label">About Operator</span>
-        <h2 class="page-title">Bhavesh Mohandas</h2>
-        <p class="page-subtitle" id="bio-subtitle">Creative Developer & Systems Architect</p>
-      </div>
-
-      <div class="about-layout">
-        <!-- Bio and Timeline column -->
-        <div class="about-bio-column">
-          <p class="about-bio-text" id="bio-desc">
-            Fusing high-fidelity interfaces, rigorous mathematical foundations, and modular architectures to bring digital systems full circle.
+      <!-- Name + Bio Split -->
+      <div class="profile-hero">
+        <div class="reveal-left">
+          <div class="profile-overline">The Operator</div>
+          <h2 class="profile-name">Bhavesh<br>Mohandas</h2>
+          <div class="profile-title-text">Year 12 Student // Kāpiti College</div>
+        </div>
+        <div class="reveal-right">
+          <p class="profile-bio">
+            Hardworking and reliable Year 12 student at Kāpiti College looking for a part-time job. I work well in fast-paced environments, pick up new skills quickly, and enjoy working as part of a team. I am punctual, motivated, and ready to contribute to a positive customer experience and robust engineering solutions.
           </p>
+        </div>
+      </div>
 
-          <div class="cv-skills-section">
-            <h3 class="about-section-title">Key Core Skills</h3>
-            <div class="cv-tags-grid" id="cv-skills-container"></div>
-          </div>
+      <!-- Infinite Marquee — Skills -->
+      <div class="marquee-section reveal">
+        <div class="marquee-label">Key Core Skills</div>
+        <div class="marquee-track">
+          <span class="marquee-item">Teamwork &amp; Communication <span class="marquee-dot"></span></span>
+          <span class="marquee-item">Efficiency &amp; Speed <span class="marquee-dot"></span></span>
+          <span class="marquee-item">Reliability &amp; Punctuality <span class="marquee-dot"></span></span>
+          <span class="marquee-item">Physical Stamina &amp; Health <span class="marquee-dot"></span></span>
+          <span class="marquee-item">Teamwork &amp; Communication <span class="marquee-dot"></span></span>
+          <span class="marquee-item">Efficiency &amp; Speed <span class="marquee-dot"></span></span>
+          <span class="marquee-item">Reliability &amp; Punctuality <span class="marquee-dot"></span></span>
+          <span class="marquee-item">Physical Stamina &amp; Health <span class="marquee-dot"></span></span>
+        </div>
+      </div>
 
-          <div class="cv-interests-section">
-            <h3 class="about-section-title">Interests & Achievements</h3>
-            <div class="cv-tags-grid" id="cv-interests-container"></div>
-          </div>
+      <!-- Bento Grid — Interests & Achievements -->
+      <div class="bento-section">
+        <div class="bento-label reveal">Interests &amp; Achievements</div>
+        <div class="bento-grid stagger-children">
 
-          <div class="timeline-container">
-            <div class="timeline-line"></div>
-            <div id="cv-timeline-container">
-              <!-- Rendered dynamically -->
+          <div class="bento-card span-2 reveal">
+            <div>
+              <div class="bento-card-icon">💻</div>
+              <div class="bento-card-title">Tech Projects &amp; Coding</div>
+              <div class="bento-card-desc">Building web apps, games, and AI systems from scratch. Always shipping, always learning.</div>
             </div>
+            <div class="bento-card-accent" style="background: var(--accent-teal);"></div>
           </div>
-        </div>
 
-        <!-- System specs sidebar widget -->
-        <div class="calibration-widget-panel">
-          <div class="widget-header-text">SYS.CALIBRATION // ENGINE</div>
-          
-          <div class="widget-slider-container">
-            <div class="widget-slider-header">
-              <span>Node Density</span>
-              <span id="slider-density-val">50</span>
+          <div class="bento-card reveal">
+            <div>
+              <div class="bento-card-icon">🎨</div>
+              <div class="bento-card-title">Freelance Editing</div>
+              <div class="bento-card-desc">Image &amp; video editing for clients — asset styling, compiling, and coordination.</div>
             </div>
-            <input type="range" class="widget-slider" id="slider-density" min="20" max="120" value="50">
+            <div class="bento-card-accent" style="background: var(--accent-purple);"></div>
           </div>
 
-          <div class="widget-slider-container">
-            <div class="widget-slider-header">
-              <span>Connection Radius</span>
-              <span id="slider-radius-val">100px</span>
+          <div class="bento-card reveal">
+            <div>
+              <div class="bento-card-icon">🤝</div>
+              <div class="bento-card-title">Volunteering</div>
+              <div class="bento-card-desc">Teaching elderly individuals basic tech interfaces and setting up Linux environments.</div>
             </div>
-            <input type="range" class="widget-slider" id="slider-radius" min="50" max="200" value="100">
+            <div class="bento-card-accent" style="background: var(--accent-blue);"></div>
           </div>
 
-          <div class="widget-row">
-            <span class="widget-label">System Active Nodes</span>
-            <span class="widget-value color-active" id="widget-active-nodes">50</span>
+          <div class="bento-card reveal">
+            <div>
+              <div class="bento-card-icon">💪</div>
+              <div class="bento-card-title">Fitness &amp; Training</div>
+              <div class="bento-card-desc">Consistent weight training and physical conditioning.</div>
+            </div>
+            <div class="bento-card-accent" style="background: var(--accent-orange);"></div>
           </div>
-          <div class="widget-row">
-            <span class="widget-label">Cursor Force Vector</span>
-            <span class="widget-value">0.30 G</span>
+
+          <div class="bento-card span-2 reveal">
+            <div>
+              <div class="bento-card-icon">✈️</div>
+              <div class="bento-card-title">School Trip to Japan</div>
+              <div class="bento-card-desc">Navigated international transit across Tokyo &amp; Osaka — fostering independence and cultural adaptability.</div>
+            </div>
+            <div class="bento-card-accent" style="background: var(--accent-gold);"></div>
           </div>
+
+        </div>
+      </div>
+
+      <!-- Horizontal Scroll Timeline — Experience -->
+      <div class="timeline-section reveal">
+        <div class="timeline-label">Experience Timeline</div>
+        <div class="timeline-hint">
+          <span>Scroll horizontally</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+        <div class="timeline-scroll">
+
+          <div class="timeline-card">
+            <div class="timeline-card-period">2023 — Present</div>
+            <div class="timeline-card-role">Year 12 Student (NCEA Level 2)</div>
+            <div class="timeline-card-company">Kāpiti College, Paraparaumu</div>
+            <div class="timeline-card-desc">Consistently balance rigorous schoolwork with personal coding projects and freelance commitments. Developed strong communication and teamwork skills through group tasks and school activities.</div>
+          </div>
+
+          <div class="timeline-card">
+            <div class="timeline-card-period">Ongoing</div>
+            <div class="timeline-card-role">Software Development &amp; Monetization Projects</div>
+            <div class="timeline-card-company">Independent Projects</div>
+            <div class="timeline-card-desc">Spend free time coding and building web applications, making games and websites, implementing monetization strategies — showing proactive learning and strong attention to detail.</div>
+          </div>
+
+          <div class="timeline-card">
+            <div class="timeline-card-period">Ongoing</div>
+            <div class="timeline-card-role">Freelance Image &amp; Video Editor</div>
+            <div class="timeline-card-company">Self-Directed</div>
+            <div class="timeline-card-desc">Gained hands-on experience in asset editing, client coordination, video compiling, and asset styling through digital freelance work.</div>
+          </div>
+
+          <div class="timeline-card">
+            <div class="timeline-card-period">Ongoing</div>
+            <div class="timeline-card-role">Linux Deployment &amp; Tech Volunteer</div>
+            <div class="timeline-card-company">Community Tech Support</div>
+            <div class="timeline-card-desc">Assisting elderly individuals with setting up devices, installing desktop Linux environments, and teaching basic technology interfaces to build digital independence.</div>
+          </div>
+
+          <div class="timeline-card">
+            <div class="timeline-card-period">2024</div>
+            <div class="timeline-card-role">International Tour Delegate</div>
+            <div class="timeline-card-company">Japan Exchange Tour (Tokyo &amp; Osaka)</div>
+            <div class="timeline-card-desc">Participated in a school trip to Tokyo and Osaka, navigating international transit, adjusting to different cultural contexts, and fostering high independence.</div>
+          </div>
+
         </div>
       </div>
 
     </div>
-  </div>
+  </section>
 
-  <!-- -----------------------------------------------------------
-       3. PROJECTS SHOWCASE VIEW
-  ------------------------------------------------------------ -->
-  <div id="projects-page" class="spa-page-view">
-    <div class="page-layout-wrapper">
-      
-      <div class="page-header-block">
-        <span class="page-label">Ecosystem Showcase</span>
-        <h2 class="page-title">Core Projects</h2>
-        <p class="page-subtitle">A collection of custom game design frameworks, state synchronization lenses, text diagnostics, and layout blueprint tools.</p>
-      </div>
+  <div class="section-divider"></div>
 
-      <div class="projects-grid" id="projects-container">
-        <!-- Rendered dynamically -->
-      </div>
+  <!-- ============================================
+       PROJECTS HEADER
+  ============================================= -->
+  <section class="projects-header" id="projects">
+    <span class="section-label reveal">Portfolio</span>
+    <h2 class="section-title reveal">Selected Work</h2>
+    <p class="section-subtitle reveal">Each project is a deep dive into a different domain — from game engines to AI optimization.</p>
+  </section>
 
-    </div>
-  </div>
-
-  <!-- -----------------------------------------------------------
-       4. WRITINGS & BLOG VIEW
-  ------------------------------------------------------------ -->
-  <div id="blog-page" class="spa-page-view">
-    <div class="page-layout-wrapper">
-      
-      <div class="page-header-block">
-        <span class="page-label">Written Notes</span>
-        <h2 class="page-title">Articles & Insights</h2>
-        <p class="page-subtitle">Essays analyzing physics models, math proportions, and decentralized architecture strategies.</p>
-      </div>
-
-      <!-- Filters & Search block -->
-      <div class="blog-controls-wrapper">
-        <div class="blog-search-row">
-          <input type="text" id="blog-search" class="blog-search-input" placeholder="Search articles by title, summary, tag..." />
+  <!-- ============================================
+       PROJECT 01 — Lifeline
+  ============================================= -->
+  <section class="project-section accent-teal">
+    <div class="project-inner">
+      <div class="project-info">
+        <div class="project-number reveal">01</div>
+        <div class="project-category reveal">Game Design & Architecture</div>
+        <h3 class="project-name reveal">Lifeline</h3>
+        <p class="project-desc reveal">
+          A roguelike life simulation deckbuilder built with TypeScript and React. Players navigate life choices, events, and challenges through card-based mechanics — combining complex game logic, deep state management, and strategic decision-making into an interactive experience that mirrors the unpredictability of real life.
+        </p>
+        <div class="project-tags reveal">
+          <span class="project-tag">TypeScript</span>
+          <span class="project-tag">React</span>
+          <span class="project-tag">Deckbuilder</span>
+          <span class="project-tag">State Engine</span>
         </div>
-        
-        <div class="blog-filter-row">
-          <div class="topic-pills" id="topic-pills-container">
-            <!-- Rendered dynamically -->
-          </div>
-          <div class="blog-sort-wrapper">
-            <select id="blog-sort" class="blog-sort-select">
-              <option value="newest">Newest Date</option>
-              <option value="oldest">Oldest Date</option>
-            </select>
+      </div>
+      <div class="project-visual reveal-scale">
+        <div class="project-visual-card">
+          <div class="card-glow"></div>
+          <div class="card-content">
+            <span class="card-icon">🃏</span>
+            <div class="card-title-overlay">Roguelike Deckbuilder</div>
           </div>
         </div>
       </div>
-
-      <div class="blog-grid" id="blog-container">
-        <!-- Rendered dynamically -->
-      </div>
-
     </div>
-  </div>
+  </section>
 
-  <!-- -----------------------------------------------------------
-       5. BLOG POST PAGE VIEW (Upgraded Big Hero Article Template)
-  ------------------------------------------------------------ -->
-  <div id="blog-post-page" class="spa-page-view">
-    
-    <!-- Big Elegant Typography Hero Header -->
-    <header class="article-hero-header">
-      <div class="article-hero-container">
-        <div class="back-btn-row">
-          <a href="#/blog" class="back-nav-link">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="19" y1="12" x2="5" y2="12"></line>
-              <polyline points="12 19 5 12 12 5"></polyline>
-            </svg>
-            Back to Articles
-          </a>
-        </div>
-        
-        <div class="article-hero-meta" id="article-meta">MAY 26, 2026 • 6 MIN READ</div>
-        <h1 class="article-hero-title" id="article-title">Article Title</h1>
-        
-        <div class="article-hero-tags" id="article-tags">
-          <!-- Dynamically populated category badges -->
+  <!-- ============================================
+       PROJECT 02 — Pokémon Showdown Clone
+  ============================================= -->
+  <section class="project-section accent-purple">
+    <div class="project-inner">
+      <div class="project-info">
+        <div class="project-number reveal">02</div>
+        <div class="project-category reveal">Competitive Systems</div>
+        <h3 class="project-name reveal">Pokémon Showdown Clone</h3>
+        <p class="project-desc reveal">
+          A custom web application replicating the core mechanics and competitive battling environment of Pokémon Showdown. Built with React and TailwindCSS, the app handles intricate data structures, complex rulesets, movepool optimization, and real-time battle state updates with mechanical precision.
+        </p>
+        <div class="project-tags reveal">
+          <span class="project-tag">React</span>
+          <span class="project-tag">TailwindCSS</span>
+          <span class="project-tag">Battle Engine</span>
+          <span class="project-tag">Real-time State</span>
         </div>
       </div>
-    </header>
-
-    <!-- Clean reading article body pane -->
-    <div class="article-body-container">
-      <article class="article-body" id="article-content">
-        <!-- Injected here -->
-      </article>
+      <div class="project-visual reveal-scale">
+        <div class="project-visual-card">
+          <div class="card-glow"></div>
+          <div class="card-content">
+            <span class="card-icon">⚔️</span>
+            <div class="card-title-overlay">Competitive Battler</div>
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
 
-  </div>
+  <!-- ============================================
+       PROJECT 03 — Base64 Memory Timeline
+  ============================================= -->
+  <section class="project-section accent-blue">
+    <div class="project-inner">
+      <div class="project-info">
+        <div class="project-number reveal">03</div>
+        <div class="project-category reveal">Decentralized Systems</div>
+        <h3 class="project-name reveal">Base64 Memory Timeline<br>&amp; Life OS</h3>
+        <p class="project-desc reveal">
+          A decentralized web utility encoding personal timelines and data directly into base64 URLs. Part of a broader "Life OS" system for tracking personal metrics, academic progress, and interests — lightweight, frictionless, and database-free. Pure client-side data sovereignty.
+        </p>
+        <div class="project-tags reveal">
+          <span class="project-tag">Base64 Encoding</span>
+          <span class="project-tag">Client-side</span>
+          <span class="project-tag">Life OS</span>
+          <span class="project-tag">Zero Backend</span>
+        </div>
+      </div>
+      <div class="project-visual reveal-scale">
+        <div class="project-visual-card">
+          <div class="card-glow"></div>
+          <div class="card-content">
+            <span class="card-icon">🧬</span>
+            <div class="card-title-overlay">Decentralized Timeline</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <!-- Global Footer -->
+  <!-- ============================================
+       PROJECT 04 — Project Gaia
+  ============================================= -->
+  <section class="project-section accent-orange">
+    <div class="project-inner">
+      <div class="project-info">
+        <div class="project-number reveal">04</div>
+        <div class="project-category reveal">AI Infrastructure</div>
+        <h3 class="project-name reveal">Project Gaia</h3>
+        <p class="project-desc reveal">
+          An optimized AI middleware architecture interfacing with Google's live models while drastically reducing token consumption. Strategic intercept and injection layers offload heavy computation onto local logic — turning the AI into a lean reasoning engine that maximizes performance and minimizes API costs.
+        </p>
+        <div class="project-tags reveal">
+          <span class="project-tag">AI Middleware</span>
+          <span class="project-tag">Token Optimization</span>
+          <span class="project-tag">Google APIs</span>
+          <span class="project-tag">Intercept Layers</span>
+        </div>
+      </div>
+      <div class="project-visual reveal-scale">
+        <div class="project-visual-card">
+          <div class="card-glow"></div>
+          <div class="card-content">
+            <span class="card-icon">🧠</span>
+            <div class="card-title-overlay">AI Middleware Engine</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       PROJECT 05 — Quadtree Image Compression
+  ============================================= -->
+  <section class="project-section accent-pink">
+    <div class="project-inner">
+      <div class="project-info">
+        <div class="project-number reveal">05</div>
+        <div class="project-category reveal">Algorithms & Graphics</div>
+        <h3 class="project-name reveal">Quadtree Image Compression</h3>
+        <p class="project-desc reveal">
+          An image compression utility based on quadtree decomposition. The algorithm recursively divides images into quadrants — compressing homogeneous regions into single squares while preserving detail in complex areas. Maps structural data into a minimal tree, making it devastatingly efficient for pixel art and matrix layouts.
+        </p>
+        <div class="project-tags reveal">
+          <span class="project-tag">Quadtree</span>
+          <span class="project-tag">Image Processing</span>
+          <span class="project-tag">Recursive Algo</span>
+          <span class="project-tag">Compression</span>
+        </div>
+      </div>
+      <div class="project-visual reveal-scale">
+        <div class="project-visual-card">
+          <div class="card-glow"></div>
+          <div class="card-content">
+            <span class="card-icon">🌳</span>
+            <div class="card-title-overlay">Spatial Compression</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       PROJECT 06 — Circl Management
+  ============================================= -->
+  <section class="project-section accent-gold">
+    <div class="project-inner">
+      <div class="project-info">
+        <div class="project-number reveal">06</div>
+        <div class="project-category reveal">Product & Workspace</div>
+        <h3 class="project-name reveal">Circl Management</h3>
+        <p class="project-desc reveal">
+          A proactive B2B operating workspace built on an infinite spatial canvas. Features dynamic data nodes, predictive insight generation, vector-based relationships, and a natural language command interface — designed to make workflows feel spatial, intuitive, and alive.
+        </p>
+        <div class="project-tags reveal">
+          <span class="project-tag">React Flow</span>
+          <span class="project-tag">Infinite Canvas</span>
+          <span class="project-tag">NLP Commands</span>
+          <span class="project-tag">B2B SaaS</span>
+        </div>
+      </div>
+      <div class="project-visual reveal-scale">
+        <div class="project-visual-card">
+          <div class="card-glow"></div>
+          <div class="card-content">
+            <span class="card-icon">🔮</span>
+            <div class="card-title-overlay">Spatial Workspace</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ============================================
+       CONTACT
+  ============================================= -->
+  <section class="contact-section" id="contact">
+    <div class="section-inner">
+      <h2 class="contact-title reveal">
+        Let's come<br><span class="gradient-text">full circle.</span>
+      </h2>
+      <p class="contact-subtitle reveal">
+        Whether it's a collaboration, a project, or just a conversation — we're always building.
+      </p>
+      <div class="contact-links reveal">
+        <a href="mailto:mrbhavesh.mohandas@gmail.com" class="contact-link">Email</a>
+        <a href="tel:0225593326" class="contact-link">Phone</a>
+        <a href="https://github.com" target="_blank" class="contact-link">GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
   <footer>
-    <div class="footer-container">
-      <div class="footer-credit" id="footer-credit-text">
-        SYSTEM_OPERATOR // BHAVESH MOHANDAS [KC]
-      </div>
-      <div class="footer-socials" id="footer-socials-container">
-        <!-- Rendered dynamically -->
-      </div>
+    <div class="footer-inner">
+      <div class="footer-credit">© 2026 circl. — All rights reserved.</div>
+      <div class="footer-right">Built with obsession.</div>
     </div>
   </footer>
 
-  <!-- -----------------------------------------------------------
-       Application Logic & Database CONFIG
-  ------------------------------------------------------------ -->
-  <script>
-    // -------------------------------------------------------------
-    // USER CONFIGURATION BLOCK
-    // Edit values inside this object to customize the website framework!
-    // -------------------------------------------------------------
-    const USER_CONFIG = {
-      profile: {
-        brandName: "circl",
-        fullName: "Bhavesh Mohandas",
-        title: "Year 12 Student // Kāpiti College",
-        splashSubtitle: "Hardworking and reliable Year 12 student at Kāpiti College. Coding, building web applications, and exploring tech pathways.",
-        aboutDescription: "Hardworking and reliable Year 12 student at Kāpiti College looking for a part-time job. I work well in fast-paced environments, pick up new skills quickly, and enjoy working as part of a team. I am punctual, motivated, and ready to contribute to a positive customer experience and robust engineering solutions.",
-        location: "Paraparaumu, New Zealand",
-        footerCredit: "SYSTEM_OPERATOR // BHAVESH MOHANDAS [KC]"
-      },
-      socials: [
-        { label: "Email", url: "mailto:mrbhavesh.mohandas@gmail.com" },
-        { label: "Phone", url: "tel:0225593326" },
-        { label: "GitHub", url: "https://github.com" }
-      ],
-      skills: [
-        "Teamwork & Communication",
-        "Efficiency & Speed",
-        "Reliability & Punctuality",
-        "Physical Stamina & Health"
-      ],
-      interests: [
-        "Tech Projects & Coding",
-        "Freelance Image & Video Editing",
-        "Volunteering (Elderly Tech Tutoring)",
-        "Fitness & Weight Training",
-        "School Trip to Japan"
-      ],
-      projects: [
-        {
-          title: "Cardstone Roguelike Engine",
-          category: "Game Design & Architecture",
-          description: "A 3D physical roguelike card game framework in Godot. Fuses custom scales balance, intern state evolution cards, cancelable sacrifice loops, and robust deck engines.",
-          tags: ["Godot", "GDScript", "3D Mathematics", "Local State Engine"],
-          link: "https://drive.google.com/file/d/1O00nk8lNk8nIASV1Z-3RGjC7uqmdBSqS/view?usp=sharing"
-        },
-        {
-          title: "Universal Work Object Lenses",
-          category: "Decentralized Product Design",
-          description: "Serverless local-first views (Grid, Kanban, Chat) configured to coordinate complex data sets via formula mapping, dynamic promotion grids, and custom themes.",
-          tags: ["JavaScript", "Local-first", "State Sync", "Figma UI Mode"],
-          link: "#"
-        },
-        {
-          title: "The Night Shift 1985",
-          category: "Creative Dev / Narratives",
-          description: "An immersive retro text simulator and horror logic engine built to render complex narrative splits and custom diagnostic pipelines.",
-          tags: ["HTML5 Canvas", "Retro Audio Engine", "Interactive Scripts"],
-          link: "#"
-        },
-        {
-          title: "circl. Math Brand Engine",
-          category: "SVG / Geometry Design",
-          description: "A static mathematical canvas mapping angles, Cartesian vectors, and high-precision values of Pi and Phi with interactive coordinate trackers.",
-          tags: ["SVG Geometry", "Math Physics", "Interactivity Engine"],
-          link: "#"
-        }
-      ],
-      experience: [
-        {
-          period: "2023 - Present",
-          role: "Year 12 Student (NCEA Level 2)",
-          company: "Kāpiti College, Paraparaumu",
-          description: "Consistently balance rigorous schoolwork with personal coding projects and freelance commitments. Developed strong communication and teamwork skills through group tasks and school activities."
-        },
-        {
-          period: "Ongoing",
-          role: "Software Development & Monetization Projects",
-          company: "Independent Projects",
-          description: "Spend free time coding and building web applications (making games and websites, implementing monetization strategies), showing proactive learning and strong attention to detail."
-        },
-        {
-          period: "Ongoing",
-          role: "Freelance Image & Video Editor",
-          company: "Self-Directed",
-          description: "Gained hands-on experience in asset editing, client coordination, video compiling, and asset styling through digital freelance work."
-        },
-        {
-          period: "Ongoing",
-          role: "Linux Deployment & Tech Volunteer",
-          company: "Community Tech Support",
-          description: "Assisting elderly individuals with setting up devices, installing desktop Linux environments, and teaching basic technology interfaces to build digital independence."
-        },
-        {
-          period: "2024",
-          role: "International Tour Delegate",
-          company: "Japan Exchange Tour (Tokyo & Osaka)",
-          description: "Participated in a school trip to Tokyo and Osaka, navigating international transit, adjusting to different cultural contexts, and fostering high independence."
-        }
-      ],
-      blog: [
-        {
-          id: "designing-neural-networks",
-          title: "Concentric Nodes & Interactive Particles: The Expressive Neural Aesthetic",
-          date: "May 26, 2026",
-          timestamp: 1779796800,
-          readTime: "6 min read",
-          tags: ["AI", "Math", "Design"],
-          summary: "Evolving standard physics particles into organic, interactive grids. We inspect how math attraction models form beautiful web backdrops.",
-          content: `
-            <p>Design is transitioning from simple grid boxes into expressive, organic interactions. An interactive particle system—often called a 'neural network backdrop'—can bridge the gap between mechanical layouts and organic fluidity.</p>
-            <h2>The Physics of Attraction</h2>
-            <p>To simulate human interaction, we assign small mass values to points on a 2D plane and calculate the distance vectors between the cursor and each particle. By applying simplified gravitational force equations, points gently accelerate toward the cursor:</p>
-            <pre style="background:#161617; padding:18px; border:1px solid #212124; border-radius:8px; font-family:'Fira Code',monospace; font-size:12.5px; color:#0acf83; margin:24px 0; overflow-x:auto;">F = G * (m1 * m2) / r^2</pre>
-            <p>By limiting the maximum speed of attraction and implementing border bounce vectors, we prevent particles from colliding or moving chaotically. The resulting layout feels alive, reacting to human touch while preserving standard UX focus.</p>
-            <h2>Synaptic Node Links</h2>
-            <p>Connections (synapses) are calculated by tracking distance between every pair of nodes. If two nodes are close enough, a line is drawn with an opacity proportional to their distance. This creates clusters that form and dissolve naturally as the particles drift.</p>
-          `
-        },
-        {
-          id: "coming-full-circle",
-          title: "Coming Full Circle: Bridging Math Geometry with Brand Typography",
-          date: "May 15, 2026",
-          timestamp: 1778846400,
-          readTime: "4 min read",
-          tags: ["Math", "Design"],
-          summary: "A breakdown of how Pi and the Golden Spiral proportions establish geometric unity and visual balance inside design assets.",
-          content: `
-            <p>Why do some design layouts feel instantly premium while others look basic? The difference often lies in geometric proportions. The human eye exhibits a natural affinity for mathematical structures like the golden ratio (1.618) and concentric circular subdivisions.</p>
-            <h2>Golden Proportions</h2>
-            <p>The Golden Ratio, represented by the Greek letter Phi (&phi;), dictates that the ratio of a sum to the larger quantity equals the ratio of the larger to the smaller quantity. In layout architectures, using column structures, margins, and card grids built on Phi proportions leads to effortless layout balances.</p>
-            <h2>The Circular Path</h2>
-            <p>By leveraging the circular mathematics of Pi (&pi;), we construct radial divisions and angle ticks that align visual components. Incorporating these blueprints directly into the landing page interfaces makes the product feel technical, intentional, and high-fidelity.</p>
-          `
-        },
-        {
-          id: "local-first-state-sync",
-          title: "Architecting Local-First State Synchronization Engines",
-          date: "April 18, 2026",
-          timestamp: 1776513600,
-          readTime: "9 min read",
-          tags: ["Systems", "Design"],
-          summary: "Exploring serverless, peer-to-peer data sync using client-side matrices and conflict resolving pipelines.",
-          content: `
-            <p>Traditional web applications rely heavily on central servers to store state and resolve data conflicts. Local-first applications turn this architecture on its head, treating the client device as the primary source of truth.</p>
-            <h2>P2P Synchronization</h2>
-            <p>Without a central database acting as an arbitrator, peer-to-peer applications require algorithms like Conflict-free Replicated Data Types (CRDTs). These structures ensure that when multiple users edit documents concurrently, their local structures converge to the exact same state without server coordination.</p>
-            <p>By integrating these synchronization pipelines with modular workspace lenses, we build workspaces that run faster, respect user privacy, and function fully offline.</p>
-          `
-        }
-      ]
-    };
-
-    // Active filters state
-    let activeCategory = 'All';
-    let searchQuery = '';
-    let activeSort = 'newest';
-
-    // -------------------------------------------------------------
-    // DYNAMIC RENDERING / DATA BINDING
-    // -------------------------------------------------------------
-    function bootstrapSiteData() {
-      // 1. Splash Page Bindings
-      document.getElementById('splash-logo-name').textContent = USER_CONFIG.profile.brandName;
-      document.getElementById('splash-hero-title').textContent = USER_CONFIG.profile.fullName.toLowerCase() + ".";
-      document.getElementById('splash-hero-subtitle').textContent = USER_CONFIG.profile.splashSubtitle;
-
-      // 2. Navigation & Bio
-      document.getElementById('nav-brand-name').textContent = USER_CONFIG.profile.brandName;
-      document.getElementById('bio-subtitle').textContent = USER_CONFIG.profile.title;
-      document.getElementById('bio-desc').textContent = USER_CONFIG.profile.aboutDescription;
-      document.getElementById('footer-credit-text').textContent = USER_CONFIG.profile.footerCredit;
-
-      // 2.1 Render CV Skills
-      const skillsContainer = document.getElementById('cv-skills-container');
-      if (skillsContainer && USER_CONFIG.skills) {
-        skillsContainer.innerHTML = '';
-        USER_CONFIG.skills.forEach(skill => {
-          const tag = document.createElement('span');
-          tag.className = 'cv-tag';
-          tag.textContent = skill;
-          skillsContainer.appendChild(tag);
-        });
-      }
-
-      // 2.2 Render CV Interests
-      const interestsContainer = document.getElementById('cv-interests-container');
-      if (interestsContainer && USER_CONFIG.interests) {
-        interestsContainer.innerHTML = '';
-        USER_CONFIG.interests.forEach(interest => {
-          const tag = document.createElement('span');
-          tag.className = 'cv-tag';
-          tag.textContent = interest;
-          interestsContainer.appendChild(tag);
-        });
-      }
-
-      // 3. Projects Render
-      const projectsContainer = document.getElementById('projects-container');
-      projectsContainer.innerHTML = '';
-      USER_CONFIG.projects.forEach(project => {
-        const card = document.createElement('div');
-        card.className = 'project-card';
-        const tagsHTML = project.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
-        card.innerHTML = `
-          <div class="project-card-header">
-            <span class="project-category">${project.category}</span>
-          </div>
-          <h3 class="project-title">${project.title}</h3>
-          <p class="project-description">${project.description}</p>
-          <div class="project-tags">${tagsHTML}</div>
-          <a href="${project.link}" class="project-link">
-            Open Project
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 2px;">
-              <line x1="7" y1="17" x2="17" y2="7"></line>
-              <polyline points="7 7 17 7 17 17"></polyline>
-            </svg>
-          </a>
-        `;
-        projectsContainer.appendChild(card);
-      });
-
-      // 4. CV Timeline Render
-      const cvContainer = document.getElementById('cv-timeline-container');
-      cvContainer.innerHTML = '';
-      USER_CONFIG.experience.forEach(exp => {
-        const item = document.createElement('div');
-        item.className = 'timeline-item';
-        item.innerHTML = `
-          <div class="timeline-dot"></div>
-          <div class="timeline-header">
-            <h3 class="timeline-role-company">${exp.role} at <span class="timeline-company">${exp.company}</span></h3>
-            <span class="timeline-period">${exp.period}</span>
-          </div>
-          <p class="timeline-description">${exp.description}</p>
-        `;
-        cvContainer.appendChild(item);
-      });
-
-      // 5. Social Links Render
-      const socialsContainer = document.getElementById('footer-socials-container');
-      socialsContainer.innerHTML = '';
-      USER_CONFIG.socials.forEach(social => {
-        const link = document.createElement('a');
-        link.className = 'social-link';
-        link.href = social.url;
-        link.textContent = social.label;
-        link.target = '_blank';
-        socialsContainer.appendChild(link);
-      });
-
-      // 6. Build Topic Filters & Render Blog Cards
-      buildTopicFilterPills();
-      renderFilteredBlogHub();
-    }
-
-    // -------------------------------------------------------------
-    // BLOG HUB FILTERING, SORTING, SEARCH ENGINE
-    // -------------------------------------------------------------
-    function buildTopicFilterPills() {
-      const pillContainer = document.getElementById('topic-pills-container');
-      pillContainer.innerHTML = '';
-
-      const uniqueTags = new Set();
-      USER_CONFIG.blog.forEach(article => {
-        article.tags.forEach(tag => uniqueTags.add(tag));
-      });
-
-      const categories = ['All', ...Array.from(uniqueTags)];
-
-      categories.forEach(category => {
-        const pill = document.createElement('button');
-        pill.className = 'topic-pill';
-        if (category === activeCategory) {
-          pill.classList.add('active-pill');
-        }
-        pill.textContent = category;
-        pill.addEventListener('click', () => {
-          document.querySelectorAll('.topic-pill').forEach(p => p.classList.remove('active-pill'));
-          pill.classList.add('active-pill');
-          activeCategory = category;
-          renderFilteredBlogHub();
-        });
-        pillContainer.appendChild(pill);
-      });
-    }
-
-    function renderFilteredBlogHub() {
-      const blogContainer = document.getElementById('blog-container');
-      blogContainer.innerHTML = '';
-
-      let filtered = USER_CONFIG.blog.filter(article => {
-        const matchesCategory = (activeCategory === 'All' || article.tags.includes(activeCategory));
-        
-        const q = searchQuery.toLowerCase().trim();
-        const matchesSearch = q === '' || 
-          article.title.toLowerCase().includes(q) || 
-          article.summary.toLowerCase().includes(q) ||
-          article.tags.some(t => t.toLowerCase().includes(q)) ||
-          article.content.toLowerCase().includes(q);
-
-        return matchesCategory && matchesSearch;
-      });
-
-      filtered.sort((a, b) => {
-        if (activeSort === 'newest') {
-          return b.timestamp - a.timestamp;
-        } else {
-          return a.timestamp - b.timestamp;
-        }
-      });
-
-      if (filtered.length === 0) {
-        blogContainer.innerHTML = `
-          <div style="grid-column: span 3; text-align: center; color: var(--text-muted); padding: 50px 0; font-family: 'Fira Code', monospace; font-size: 13px;">
-            NO_MATCHING_ARTICLES
-          </div>
-        `;
-        return;
-      }
-
-      filtered.forEach(article => {
-        const card = document.createElement('a');
-        card.className = 'blog-card';
-        card.href = `#/blog/${article.id}`;
-        
-        const tagsHTML = article.tags.map(tag => `<span class="blog-card-tag">${tag}</span>`).join('');
-        
-        card.innerHTML = `
-          <div class="blog-meta">
-            <span>${article.date}</span>
-            <span>${article.readTime}</span>
-          </div>
-          <h3 class="blog-card-title">${article.title}</h3>
-          <p class="blog-summary">${article.summary}</p>
-          <div class="blog-card-tags">${tagsHTML}</div>
-          <span class="blog-readmore">
-            Read Article
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 4px;">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </span>
-        `;
-        blogContainer.appendChild(card);
-      });
-    }
-
-    document.getElementById('blog-search').addEventListener('input', (e) => {
-      searchQuery = e.target.value;
-      renderFilteredBlogHub();
-    });
-
-    document.getElementById('blog-sort').addEventListener('change', (e) => {
-      activeSort = e.target.value;
-      renderFilteredBlogHub();
-    });
-
-    // -------------------------------------------------------------
-    // LIGHTWEIGHT CLIENT-SIDE HASH ROUTER
-    // -------------------------------------------------------------
-    const splashPortal = document.getElementById('splash-portal');
-    const navHeader = document.getElementById('site-navigation');
-    const canvas = document.getElementById('neural-canvas');
-    
-    // View sections mapping
-    const views = {
-      directory: document.getElementById('directory-page'),
-      about: document.getElementById('about-page'),
-      projects: document.getElementById('projects-page'),
-      blog: document.getElementById('blog-page'),
-      postDetail: document.getElementById('blog-post-page')
-    };
-
-    let portalEntered = false;
-
-    function router() {
-      const hash = window.location.hash || '#/';
-
-      // Hide all dynamic page views
-      Object.values(views).forEach(view => view.classList.remove('view-active'));
-      navHeader.style.display = 'none';
-
-      // Route evaluation
-      if (hash === '#/' || hash === '') {
-        // 1. Initial splash screen view (Nav hidden)
-        if (portalEntered) {
-          window.location.hash = '#/directory';
-          return;
-        }
-        splashPortal.style.opacity = '1';
-        splashPortal.style.visibility = 'visible';
-        canvas.style.opacity = '0.5';
-        
-      } else if (hash === '#/directory') {
-        // 2. Directory Hub selector (Nav hidden)
-        portalEntered = true;
-        splashPortal.style.opacity = '0';
-        splashPortal.style.visibility = 'hidden';
-        canvas.style.opacity = '0.35';
-        
-        views.directory.classList.add('view-active');
-        window.scrollTo(0, 0);
-
-      } else if (hash === '#/about') {
-        // 3. About page (Nav visible)
-        portalEntered = true;
-        splashPortal.style.opacity = '0';
-        splashPortal.style.visibility = 'hidden';
-        canvas.style.opacity = '0.25';
-        navHeader.style.display = 'block';
-
-        views.about.classList.add('view-active');
-        updateActiveNavLink('about');
-        window.scrollTo(0, 0);
-
-      } else if (hash === '#/projects') {
-        // 4. Projects page (Nav visible)
-        portalEntered = true;
-        splashPortal.style.opacity = '0';
-        splashPortal.style.visibility = 'hidden';
-        canvas.style.opacity = '0.25';
-        navHeader.style.display = 'block';
-
-        views.projects.classList.add('view-active');
-        updateActiveNavLink('projects');
-        window.scrollTo(0, 0);
-
-      } else if (hash === '#/blog') {
-        // 5. Blog Hub List page (Nav visible)
-        portalEntered = true;
-        splashPortal.style.opacity = '0';
-        splashPortal.style.visibility = 'hidden';
-        canvas.style.opacity = '0.25';
-        navHeader.style.display = 'block';
-
-        views.blog.classList.add('view-active');
-        updateActiveNavLink('blog');
-        window.scrollTo(0, 0);
-
-      } else if (hash.startsWith('#/blog/')) {
-        // 6. Upgraded Big Hero blog details (Nav visible)
-        portalEntered = true;
-        splashPortal.style.opacity = '0';
-        splashPortal.style.visibility = 'hidden';
-        canvas.style.opacity = '0.12'; // Very faint backdrop
-        navHeader.style.display = 'block';
-
-        const postId = hash.replace('#/blog/', '');
-        const article = USER_CONFIG.blog.find(a => a.id === postId);
-
-        if (article) {
-          document.getElementById('article-title').textContent = article.title;
-          document.getElementById('article-content').innerHTML = article.content;
-          document.getElementById('article-meta').textContent = `${article.date.toUpperCase()} • ${article.readTime.toUpperCase()}`;
-          
-          // Generate tags badges inside the big hero
-          const tagContainer = document.getElementById('article-tags');
-          tagContainer.innerHTML = article.tags.map(tag => `<span class="article-hero-tag">${tag}</span>`).join('');
-
-          views.postDetail.classList.add('view-active');
-          updateActiveNavLink('blog');
-          window.scrollTo(0, 0);
-        } else {
-          // Redirect if not found
-          window.location.hash = '#/blog';
-        }
-      }
-    }
-
-    function updateActiveNavLink(activeKey) {
-      document.querySelectorAll('.nav-links a').forEach(link => {
-        link.classList.remove('active-link');
-      });
-      const targetLink = document.getElementById(`nav-link-${activeKey}`);
-      if (targetLink) {
-        targetLink.classList.add('active-link');
-      }
-    }
-
-    // Bind hashchange listener
-    window.addEventListener('hashchange', router);
-
-    function enterPortalSite() {
-      portalEntered = true;
-      window.location.hash = '#/directory';
-    }
-
-    document.getElementById('btn-enter').addEventListener('click', enterPortalSite);
-
-    // -------------------------------------------------------------
-    // NEURAL INTERACTIVE PHYSICS ENGINE (CANVAS)
-    // -------------------------------------------------------------
-    const ctx = canvas.getContext('2d');
-    
-    let activeNodesCount = 50;
-    let nodeConnectRadius = 100;
-    
-    let nodes = [];
-    let mouse = { x: null, y: null, active: false };
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      initNodes();
-    }
-
-    class NeuralNode {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.vx = (Math.random() - 0.5) * 0.35; // Quiet, elegant drift
-        this.vy = (Math.random() - 0.5) * 0.35;
-        this.baseRadius = Math.random() * 1.5 + 1;
-        this.radius = this.baseRadius;
-      }
-
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
-
-        this.vx += (Math.random() - 0.5) * 0.02;
-        this.vy += (Math.random() - 0.5) * 0.02;
-
-        const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
-        if (speed > 0.5) {
-          this.vx = (this.vx / speed) * 0.5;
-          this.vy = (this.vy / speed) * 0.5;
-        }
-
-        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-
-        if (mouse.active && mouse.x !== null) {
-          const dx = mouse.x - this.x;
-          const dy = mouse.y - this.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          
-          if (dist < 180) {
-            const pullFactor = (180 - dist) / 180;
-            this.vx += (dx / dist) * pullFactor * 0.08;
-            this.vy += (dy / dist) * pullFactor * 0.08;
-            this.radius = this.baseRadius + pullFactor * 1.2;
-          } else {
-            this.radius = this.baseRadius;
-          }
-        } else {
-          this.radius = this.baseRadius;
-        }
-      }
-
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = mouse.active && Math.sqrt(Math.pow(mouse.x - this.x, 2) + Math.pow(mouse.y - this.y, 2)) < 180
-          ? 'rgba(10, 207, 131, 0.45)' // soft green attraction
-          : 'rgba(255, 255, 255, 0.15)'; // clean minimalist white
-        ctx.fill();
-      }
-    }
-
-    function initNodes() {
-      nodes = [];
-      for (let i = 0; i < activeNodesCount; i++) {
-        nodes.push(new NeuralNode());
-      }
-      document.getElementById('widget-active-nodes').textContent = activeNodesCount.toString();
-    }
-
-    function animateNeuralPhysics() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      nodes.forEach(node => {
-        node.update();
-        node.draw();
-      });
-
-      for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-          const dx = nodes[i].x - nodes[j].x;
-          const dy = nodes[i].y - nodes[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < nodeConnectRadius) {
-            const alpha = (nodeConnectRadius - dist) / nodeConnectRadius;
-            ctx.beginPath();
-            ctx.moveTo(nodes[i].x, nodes[i].y);
-            ctx.lineTo(nodes[j].x, nodes[j].y);
-            ctx.strokeStyle = `rgba(255, 255, 255, ${alpha * 0.045})`;
-            ctx.lineWidth = alpha * 0.8;
-            ctx.stroke();
-          }
-        }
-      }
-
-      if (mouse.active && mouse.x !== null) {
-        nodes.forEach(node => {
-          const dx = mouse.x - node.x;
-          const dy = mouse.y - node.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < 150) {
-            const alpha = (150 - dist) / 150;
-            ctx.beginPath();
-            ctx.moveTo(mouse.x, mouse.y);
-            ctx.lineTo(node.x, node.y);
-            
-            const grad = ctx.createLinearGradient(mouse.x, mouse.y, node.x, node.y);
-            grad.addColorStop(0, `rgba(10, 207, 131, ${alpha * 0.25})`);
-            grad.addColorStop(1, `rgba(162, 89, 255, ${alpha * 0.04})`);
-            
-            ctx.strokeStyle = grad;
-            ctx.lineWidth = alpha * 1.0;
-            ctx.stroke();
-          }
-        });
-      }
-
-      requestAnimationFrame(animateNeuralPhysics);
-    }
-
-    window.addEventListener('mousemove', (e) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-      mouse.active = true;
-    });
-
-    window.addEventListener('mouseleave', () => {
-      mouse.active = false;
-    });
-
-    // -------------------------------------------------------------
-    // INTERACTIVE CALIBRATION SLIDERS
-    // -------------------------------------------------------------
-    const sliderDensity = document.getElementById('slider-density');
-    const sliderDensityVal = document.getElementById('slider-density-val');
-    const sliderRadius = document.getElementById('slider-radius');
-    const sliderRadiusVal = document.getElementById('slider-radius-val');
-
-    sliderDensity.addEventListener('input', (e) => {
-      const val = parseInt(e.target.value);
-      sliderDensityVal.textContent = val.toString();
-      activeNodesCount = val;
-      initNodes();
-    });
-
-    sliderRadius.addEventListener('input', (e) => {
-      const val = parseInt(e.target.value);
-      sliderRadiusVal.textContent = val + 'px';
-      nodeConnectRadius = val;
-    });
-
-    // -------------------------------------------------------------
-    // INITIALIZATION RUNS
-    // -------------------------------------------------------------
-    window.addEventListener('resize', resizeCanvas);
-    
-    bootstrapSiteData();
-    resizeCanvas();
-    animateNeuralPhysics();
-    
-    // Execute router to check initial hash
-    router();
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
